@@ -74,17 +74,19 @@ plataforma-rifas/
 │   ├── index.html             # Vista cliente
 │   ├── admin.html             # Panel de administración
 │   └── assets/
-│       ├── css/
+│   ├── css/
 │       │   ├── cliente.css
 │       │   └── admin.css
-│       └── img/
-│           └── logo.png
 │
 ├── cliente/                   # Módulos para vista cliente
-│   ├── appCliente.js
-│   ├── rifasUI.js
+│   ├── app.js
+│   ├── cargarRifas.js
+│   ├── infoRifaUI.js
+│   ├── modal.js
 │   ├── numerosUI.js
-│   ├── reservasCliente.js
+│   ├── reservas.js
+│   ├── scrollControl.js
+│   ├── supabaseCliente.js
 │   └── uiHelpers.js
 │
 ├── admin/                     # Módulos del panel admin
@@ -96,11 +98,14 @@ plataforma-rifas/
 │   ├── reservasAdmin.js
 │   ├── modalAdmin.js
 │   ├── utilsAdmin.js
-│   └── uiAdminHelpers.js
+│   ├── uiAdminHelpers.js
+│   ├── helpersAdmin.js
+│   └── loginAdmin.js
 │
 └── README.md                  # Este archivo
 ``` 
 ## 🔐 Acceso al Panel de Administración
+
 Para entrar al panel de administración:
 
 Accede a /admin.html
@@ -116,6 +121,7 @@ Accederás a las rifas y reservas
 Podrás editar, eliminar o aprobar reservas
 
 ## 🧪 Estado del Proyecto
+
 ✅ MVP funcional completo
 
 🔜 En desarrollo:
