@@ -33,8 +33,6 @@ Bienvenido a la plataforma de rifas en línea. Esta aplicación permite a los us
 
 ![admin](assets/capture/admin/1.png)
 
-![admin](assets/capture/admin/2.png)
-
 ![admin](assets/capture/admin/3.png)
 
 ![admin](assets/capture/admin/4.png)
