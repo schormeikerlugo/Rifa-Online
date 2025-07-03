@@ -13,6 +13,7 @@ Bienvenido a la plataforma de rifas en línea. Esta aplicación permite a los us
 ## 🚀 Vista Previa capture
 
 ### 🧑 Cliente
+
 ![cliente](assets/capture/cliente/1.png)
 
 ![cliente](assets/capture/cliente/2.png)
@@ -25,9 +26,11 @@ Bienvenido a la plataforma de rifas en línea. Esta aplicación permite a los us
 
 ![cliente](assets/capture/cliente/6.png)
 
----
+
 
 ### 👨‍💻 Panel de Administración
+
+
 ![admin](assets/capture/admin/1.png)
 
 ![admin](assets/capture/admin/2.png)
