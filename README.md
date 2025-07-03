@@ -95,21 +95,20 @@ Podrás editar, eliminar o aprobar reservas
 
 🔜 En desarrollo:
 
- Separación por microservicios con API REST
+ Separación por microservicios con API REST.
 
- Empaquetado con Docker
+ Empaquetado con Docker.
 
- Pagos automáticos (MercadoPago, Stripe, etc.)
+ Pagos automáticos (MercadoPago, Stripe, bitcoin, etc.)
 
- Historial de ganadores
+ Historial de ganadores.
 
- Sistema de notificaciones
+ Sistema de notificaciones.
 
- integrar preloader para los procesos de subida multimedia
+ integrar preloader para los procesos de subida multimedia.
 
 🧠 ## Créditos y Agradecimientos
-🧑‍💻 Desarrollado por: Schormeiker Lugo
 
-💡 Inspirado por: proyectos minimalistas y admin panels modernos
+🧑‍💻 Desarrollado por: Schormeiker Lugo
 
 ❤️ Gracias a Supabase por ofrecer una suite backend tan completa.

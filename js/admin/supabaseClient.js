@@ -1,4 +1,4 @@
-// /js/admin/supabaseClient.js
+// /js/admin/supabaseAdmin.js
 import { createClient } from 'https://esm.sh/@supabase/supabase-js'
 
 const supabaseUrl = 'https://wvebiyuoszwzsxavoitp.supabase.co'
