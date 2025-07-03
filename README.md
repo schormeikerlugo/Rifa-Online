@@ -10,13 +10,37 @@ Bienvenido a la plataforma de rifas en línea. Esta aplicación permite a los us
 
 ---
 
-## 🚀 Vista Previa
+## 🚀 Vista Previa capture
 
 ### 🧑 Cliente
-![cliente](https://fakeurl.com/preview-cliente.jpg)
+![cliente](assets/capture/cliente/1.png)
+
+![cliente](assets/capture/cliente/2.png)
+
+![cliente](assets/capture/cliente/3.png)
+
+![cliente](assets/capture/cliente/4.png)
+
+![cliente](assets/capture/cliente/5.png)
+
+![cliente](assets/capture/cliente/6.png)
+
+---
 
 ### 👨‍💻 Panel de Administración
-![admin](https://fakeurl.com/preview-admin.jpg)
+![admin](assets/capture/admin/1.png)
+
+![admin](assets/capture/admin/2.png)
+
+![admin](assets/capture/admin/3.png)
+
+![admin](assets/capture/admin/4.png)
+
+![admin](assets/capture/admin/5.png)
+
+![admin](assets/capture/admin/6.png)
+
+![admin](assets/capture/admin/7.png)
 
 ---
 
