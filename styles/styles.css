@@ -118,6 +118,34 @@ body {
 }
 
 /* ===================================
+   🔝 BOTÓN VOLVER ARRIBA (ESTILO volver-rifa)
+=================================== */
+#btnIrArriba {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 2000;
+  background-color: var(--text-dark);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  min-width: 50px;
+  max-width: 100%;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  display: none; /* Solo visible cuando hay scroll */
+}
+
+#btnIrArriba:hover {
+  background-color: var(--blue-dark);
+}
+
+/* ===================================
    🌟 animacion de fondo
 =================================== */
 
