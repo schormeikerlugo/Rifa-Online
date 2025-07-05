@@ -122,8 +122,8 @@ body {
 =================================== */
 #btnIrArriba {
   position: fixed;
-  bottom: 40px;
-  right: 40px;
+  bottom: 50px;
+  right: 25px;
   z-index: 2000;
   background-color: var(--text-dark);
   color: #fff;
@@ -752,4 +752,6 @@ section{
 .imagen-extra img:hover {
   transform: scale(1.05);
 }
+
+
 
