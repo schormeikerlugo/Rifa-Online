@@ -47,6 +47,20 @@
   /* 🌑 Colores utilitarios */
   --overlay-dark:    rgba(0, 0, 0, 0.5);
   --glass-dark:      rgba(22, 22, 22, 0.6);
+
+  /* 🎰 Colores vibrantes para barra tipo casino */
+  --casino-green:     #00ff66;
+  --casino-blue:      #00ffcc;
+  --casino-bg:        #111111;
+  --casino-border:    #00ffff;
+  --casino-text:      #ffffff;
+  --casino-glow:      rgba(0, 255, 255, 0.3)
+
+
+  /* ✨ Sombras especiales */
+  --shadow-casino:    0 0 8px var(--casino-glow);
+  --text-glow:        0 0 4px var(--casino-blue);
+  
 }
 
 /* ===================================
@@ -57,6 +71,15 @@
   margin: 0;
   padding: 0;
   font-family: var(--font-base);
+}
+
+body.preloading {
+  overflow: hidden;
+  visibility: hidden;
+}
+
+body.preloading .preloader-global {
+  visibility: visible;
 }
 
 html, body {
@@ -328,6 +351,121 @@ h2, h3 {
   object-fit: cover;
 }
 
+/* ===================================
+   🎰 BARRA DE PROGRESO TIPO CASINO
+=================================== */
+.barra-progreso {
+  padding: 15px;
+  position: relative;
+  width: 240px;
+  height: 24px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-casino);
+  border: 1px solid var(--casino-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.barra-relleno {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: var(--radius-md);
+  transition: width 1.5s ease-out, background 0.3s ease;
+  z-index: 1;
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+}
+
+/* Estado inicial para animación */
+.barra-relleno.animar-carga {
+  width: 0;
+}
+
+/* 🎞️ Movimiento constante del fondo */
+.barra-relleno.animacion-color {
+  animation: moverColor 3s linear infinite;
+}
+
+@keyframes moverColor {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+
+/* 🎨 Colores por porcentaje usando data-progreso */
+.barra-relleno[data-progreso^="0"],
+.barra-relleno[data-progreso^="1"],
+.barra-relleno[data-progreso^="2"],
+.barra-relleno[data-progreso^="3"],
+.barra-relleno[data-progreso^="4"] {
+  background: linear-gradient(90deg, var(--casino-blue), var(--casino-green)); /* Azul-Verde */
+}
+
+.barra-relleno[data-progreso^="5"],
+.barra-relleno[data-progreso^="6"],
+.barra-relleno[data-progreso^="7"] {
+  background: linear-gradient(90deg, #ffeb3b, #ff9800); /* Amarillo-Naranja */
+}
+
+.barra-relleno[data-progreso^="8"],
+.barra-relleno[data-progreso^="9"],
+.barra-relleno[data-progreso="100"] {
+  background: linear-gradient(90deg, #9c27b0, #f44336); /* Púrpura-Rojo */
+}
+
+.borde-brillante {
+  animation: brilloBordeCasino 1.5s ease-in-out infinite;
+  box-shadow: 0 0 8px 2px var(--casino-border);
+}
+
+@keyframes brilloBordeCasino {
+  0% {
+    box-shadow: 0 0 4px 1px var(--casino-border);
+  }
+  50% {
+    box-shadow: 0 0 12px 3px var(--casino-border);
+  }
+  100% {
+    box-shadow: 0 0 4px 1px var(--casino-border);
+  }
+}
+
+.barra-texto {
+  position: relative;
+  z-index: 2;
+  color: var(--casino-text);
+  font-weight: bold;
+  font-size: var(--font-size-sm);
+  text-shadow: var(--text-glow);
+  line-height: 24px;
+  text-align: center;
+  padding: 0 8px;
+}
+
+/* ✨ Animación tipo brillo casino */
+@keyframes brilloCasino {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+
 .rifa-info {
   
   flex: 1;
@@ -338,8 +476,7 @@ h2, h3 {
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
-    
-    overflow-wrap: break-word;
+  overflow-wrap: break-word;
   white-space: normal;
 }
 .rifa-info::-webkit-scrollbar {
@@ -358,8 +495,7 @@ h2, h3 {
   color: #979797;
   margin-bottom: 10px;
   font-size: 0.9rem;
-    
-    overflow-wrap: break-word;
+  overflow-wrap: break-word;
   white-space: normal;
 }
 .rifa-info .fecha_inicio {
@@ -752,6 +888,3 @@ section{
 .imagen-extra img:hover {
   transform: scale(1.05);
 }
-
-
-

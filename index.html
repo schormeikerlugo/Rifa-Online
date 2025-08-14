@@ -4,9 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RifasOnline</title>
+  <link rel="stylesheet" href="styles/preloader.css" />
   <link rel="stylesheet" href="styles/styles.css" />
   <link rel="icon" href="assets/favicon.png">
   <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"type="module"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
 </head>
 <body>
   <header></header>
@@ -25,7 +28,13 @@
     </header>
 
      <!-- contenedor de rifas -->
-      <div id="rifasContainer" class="grid"></div>
+      <div id="rifasContainer" class="grid">
+        <div class="barra-progreso">
+  <div class="barra-relleno animar-carga animacion-color" data-progreso="72"></div>
+  <div class="barra-texto">72%</div>
+</div>
+
+      </div>
     </section>
 
     <!-- 🟡 Sección 2: Vista de Números y Detalles de Rifa -->

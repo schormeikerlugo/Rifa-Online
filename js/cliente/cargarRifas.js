@@ -1,7 +1,21 @@
 // js/cargarRifas.js
 import { client } from './supabaseClient.js';
 import { mostrarNumerosPorRifa } from './numerosUI.js';
-import { mostrarSeccion } from './uiHelpers.js';
+import { mostrarSeccion, crearBarraDeProgreso } from './uiHelpers.js';
+
+async function obtenerPorcentajeOcupado(rifaId) {
+  const { data, error } = await client
+    .from('numeros')
+    .select('estado')
+    .eq('rifa_id', rifaId);
+
+  if (error || !data) return 0;
+
+  const total = data.length;
+  const ocupados = data.filter(n => n.estado === 'ocupado' || n.estado === 'confirmado').length;
+
+  return total > 0 ? Math.round((ocupados / total) * 100) : 0;
+}
 
 export async function cargarRifas() {
   const { data, error } = await client
@@ -10,7 +24,7 @@ export async function cargarRifas() {
     .order('fecha_inicio', { ascending: true });
 
   if (error) {
-    mostrarModal('Error al cargar rifas:.', 'error');
+    mostrarModal('Error al cargar rifas.', 'error');
     return;
   }
 
@@ -31,48 +45,90 @@ export async function cargarRifas() {
 
   contenedor.innerHTML = '';
 
-data.forEach(rifa => {
-  const card = document.createElement('div');
-  card.classList.add('rifa-card');
+  // ✅ Usamos for...of para manejar await correctamente
+  for (const rifa of data) {
+    const card = document.createElement('div');
+    card.classList.add('rifa-card');
 
-  // Imagen
-  const img = document.createElement('img');
-  img.src = rifa.imagen_url || 'https://via.placeholder.com/300x150';
-  img.alt = rifa.titulo;
+    const img = document.createElement('img');
+    img.src = rifa.imagen_url || 'https://via.placeholder.com/300x150';
+    img.alt = rifa.titulo;
 
-  // Info
-  const infoDiv = document.createElement('div');
-  infoDiv.classList.add('rifa-info');
+    const infoDiv = document.createElement('div');
+    infoDiv.classList.add('rifa-info');
 
-  const titulo = document.createElement('h3');
-  titulo.classList.add('rifa-titulo');
-  titulo.textContent = rifa.titulo;
+    const titulo = document.createElement('h3');
+    titulo.classList.add('rifa-titulo');
+    titulo.textContent = rifa.titulo;
+    infoDiv.appendChild(titulo);
 
-  const fechaInicio = document.createElement('p');
-  fechaInicio.classList.add('fecha_inicio');
-  fechaInicio.innerHTML = `📅 <strong>Inicio:</strong> ${formatearFecha(rifa.fecha_inicio)}`;
+    const porcentaje = await obtenerPorcentajeOcupado(rifa.id);
+    const barra = crearBarraDeProgreso(porcentaje);
+    infoDiv.appendChild(barra);
 
-  const fechaFin = document.createElement('p');
-  fechaFin.classList.add('fecha_fin');
-  fechaFin.innerHTML = `📅 <strong>Fin:</strong> ${formatearFecha(rifa.fecha_fin)}`;
+    const fechaInicio = document.createElement('p');
+    fechaInicio.classList.add('fecha_inicio');
+    fechaInicio.innerHTML = `📅 <strong>Inicio:</strong> ${formatearFecha(rifa.fecha_inicio)}`;
 
-  const descripcion = document.createElement('p');
-  descripcion.classList.add('rifa-descripcion');
-  descripcion.textContent = rifa.descripcion || '';
+    const fechaFin = document.createElement('p');
+    fechaFin.classList.add('fecha_fin');
+    fechaFin.innerHTML = `📅 <strong>Fin:</strong> ${formatearFecha(rifa.fecha_fin)}`;
 
-  infoDiv.appendChild(titulo);
-  infoDiv.appendChild(fechaInicio);
-  infoDiv.appendChild(fechaFin);
-  infoDiv.appendChild(descripcion);
+    const descripcion = document.createElement('p');
+    descripcion.classList.add('rifa-descripcion');
+    descripcion.textContent = rifa.descripcion || '';
 
-  card.appendChild(img);
-  card.appendChild(infoDiv);
+    infoDiv.appendChild(fechaInicio);
+    infoDiv.appendChild(fechaFin);
+    infoDiv.appendChild(descripcion);
 
-  card.addEventListener('click', () => {
-    mostrarNumerosPorRifa(rifa.id, rifa);
-    mostrarSeccion('numerosSection');
+    card.appendChild(img);
+    card.appendChild(infoDiv);
+
+    card.addEventListener('click', () => {
+      mostrarNumerosPorRifa(rifa.id, rifa);
+      mostrarSeccion('numerosSection');
+    });
+
+    contenedor.appendChild(card);
+  }
+
+  // ✅ Activar animación y lógica visual de las barras una vez renderizadas
+  setTimeout(() => {
+    document.querySelectorAll('.barra-relleno').forEach(barra => {
+      const progreso = parseInt(barra.dataset.progreso, 10);
+      const contenedor = barra.closest('.barra-progreso');
+
+      let colorBorde = '#ccc';
+
+      if (progreso < 50) {
+        colorBorde = '#00c8ff';
+      } else if (progreso < 80) {
+        colorBorde = '#ff9800';
+      } else {
+        colorBorde = '#f44336';
+        contenedor.classList.add('borde-brillante');
+      }
+
+      contenedor.style.setProperty('--casino-border', colorBorde);
+
+      barra.classList.add('animar-carga');
+      barra.style.width = '0%';
+
+      requestAnimationFrame(() => {
+        barra.style.width = progreso + '%';
+        barra.classList.remove('animar-carga');
+      });
+    });
+  }, 50);
+}
+
+function actualizarListaDeRifas(rifas) {
+  const lista = document.getElementById('lista-de-rifas');
+  rifas.forEach(rifa => {
+    const porcentajeVendido = (rifa.numerosVendidos / rifa.totalNumeros) * 100;
+    const barraDeProgreso = crearBarraDeProgreso(porcentajeVendido);
+    item.appendChild(barraDeProgreso);
+    lista.appendChild(item);
   });
-
-  contenedor.appendChild(card);
-});
 }

@@ -1,4 +1,60 @@
 // js/modalAdmin.js
+/**
+ * Muestra un modal con un textarea para editar el mensaje antes de enviar el correo.
+ * @param {string} mensajePredeterminado - El mensaje que se muestra por defecto.
+ * @param {string} titulo - El título del modal.
+ * @returns {Promise<string>} - El mensaje final escrito por el admin.
+ */
+export function mostrarModalMensajeEditable(mensajePredeterminado, titulo = 'Editar mensaje') {
+  return new Promise((resolve) => {
+    const modal = document.getElementById('modalCustom');
+    const mensajeEl = document.getElementById('modalMensaje');
+    const lottieEl = document.getElementById('modalLottie');
+    mensajeEl.innerHTML = '';
+    lottieEl.load('https://lottie.host/b2dc22ab-80cb-4c94-ba83-1a2f439f66ac/rXEw8t4OUt.lottie');
+
+    // Crear título y textarea
+    const tituloEl = document.createElement('h3');
+    tituloEl.textContent = titulo;
+    const textarea = document.createElement('textarea');
+    textarea.value = mensajePredeterminado;
+    textarea.rows = 6;
+    textarea.style.width = '100%';
+    textarea.style.marginTop = '10px';
+
+    // Crear botón Confirmar
+    const btnConfirmar = document.createElement('button');
+    btnConfirmar.id = 'modalConfirmarEditable';
+    btnConfirmar.textContent = 'Enviar mensaje';
+    btnConfirmar.className = 'btn btn-accent';
+
+    // Crear botón Cancelar
+    const btnCancelar = document.createElement('button');
+    btnCancelar.textContent = 'Cancelar';
+    btnCancelar.className = 'btn btn-neutral';
+    btnCancelar.style.marginLeft = '10px';
+
+    // Limpiar y agregar elementos al modal
+    mensajeEl.appendChild(tituloEl);
+    mensajeEl.appendChild(textarea);
+    mensajeEl.appendChild(btnConfirmar);
+    mensajeEl.appendChild(btnCancelar);
+
+    modal.classList.remove('oculto');
+    modal.classList.add('visible');
+
+    btnConfirmar.onclick = () => {
+      modal.classList.remove('visible');
+      modal.classList.add('oculto');
+      resolve(textarea.value);
+    };
+    btnCancelar.onclick = () => {
+      modal.classList.remove('visible');
+      modal.classList.add('oculto');
+      resolve(null);
+    };
+  });
+}
 
 const gifsPorTipo = {
   exito: 'https://lottie.host/68cbc10e-d652-433a-8ea5-2e878a9b4cdb/Gwx6IP053J.lottie',

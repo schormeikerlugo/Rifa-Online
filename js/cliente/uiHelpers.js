@@ -51,3 +51,23 @@ export function volverAPrincipal() {
   mostrarSeccion('rifasSection');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
+
+export function crearBarraDeProgreso(porcentaje) {
+  const barra = document.createElement('div');
+  barra.classList.add('barra-progreso');
+
+  const relleno = document.createElement('div');
+  relleno.classList.add('barra-relleno');
+  relleno.style.width = `${porcentaje}%`;
+  relleno.setAttribute('data-progreso', porcentaje); // 👈 clave para CSS
+
+  const texto = document.createElement('span');
+  texto.classList.add('barra-texto');
+  texto.textContent = `${porcentaje}% Ocupado`;
+
+  barra.appendChild(relleno);
+  barra.appendChild(texto);
+
+  return barra;
+}
+
