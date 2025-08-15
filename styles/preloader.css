@@ -1,21 +1,34 @@
 .preloader-global {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  background: #000; /* o un fondo animado tipo casino */
-  color: #fff;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000; /* o tu fondo personalizado */
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  pointer-events: all;
 }
 
-body.preloading {
-  overflow: hidden;
-  visibility: hidden;
+.preloader-contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* espacio entre animación y texto */
 }
 
-body.preloading .preloader-global {
-  visibility: visible;
+.preloader-texto {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+}
+.preloader-animacion {
+  width: 50px; /* ancho de la animación */
+  height: 50px; /* alto de la animación */
+  border: 5px solid #fff; /* borde blanco */
+  border-radius: 50%;
+  border-top-color: transparent; /* parte superior transparente para crear el efecto de giro */
+  animation: girar 1s linear infinite;
 }

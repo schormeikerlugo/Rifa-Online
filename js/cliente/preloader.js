@@ -1,28 +1,21 @@
-export function mostrarPreloader(container, opciones = {}) {
+export function mostrarPreloader() {
+  const preloader = document.getElementById('preloaderGlobal');
   document.body.classList.add('preloading');
-
-  const destino = container || document.body;
-  const { mensaje = 'Cargando...', tipo = 'casino', animacion = 'fadeIn' } = opciones;
-
-  const preloader = document.createElement('div');
-  preloader.className = `preloader-global animate__animated animate__${animacion}`;
-  preloader.innerHTML = `
-    <div class="spinner"></div>
-    <p>${mensaje}</p>
-  `;
-
-  destino.appendChild(preloader);
+  preloader.classList.add('animate__animated', 'animate__zoomIn');
 }
 
-export function ocultarPreloader(delay = 0) {
-  const preloader = document.querySelector('.preloader-global');
-  if (preloader) {
-    setTimeout(() => {
-      preloader.classList.add('animate__fadeOut');
-      setTimeout(() => {
-        preloader.remove();
-        document.body.classList.remove('preloading');
-      }, 600); // tiempo de animación de salida
-    }, delay);
-  }
+export function ocultarPreloader(delay = 1000) {
+  const preloader = document.getElementById('preloaderGlobal');
+  if (!preloader) return;
+
+  setTimeout(() => {
+    preloader.classList.remove('animate__zoomIn');
+    preloader.classList.add('animate__fadeOut');
+
+    preloader.addEventListener('animationend', () => {
+      preloader.remove();
+      document.body.classList.remove('preloading');
+    });
+  }, delay);
 }
+

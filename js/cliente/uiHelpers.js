@@ -47,6 +47,7 @@ export function mostrarSeccion(id) {
 }
 
 // ✅ NUEVA FUNCIÓN: volver a la vista principal (rifas)
+
 export function volverAPrincipal() {
   mostrarSeccion('rifasSection');
   window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -5,20 +5,13 @@ import { prepararModal } from './modal.js';
 import { inicializarBotonIrArriba } from './scrollControl.js';
 import { mostrarPreloader, ocultarPreloader } from './preloader.js';
 
-
 // Mostrar el preloader al inicio
-mostrarPreloader(null, {
-  mensaje: '🎰 Cargando la experiencia...',
-  tipo: 'casino',
-  animacion: 'fadeIn'
-});
+mostrarPreloader();
 
 // Esperar a que todo esté cargado (DOM + imágenes + fuentes)
 window.addEventListener('load', () => {
-  // Esperar 2 segundos extra antes de mostrar el contenido
-  ocultarPreloader(2000);
+  ocultarPreloader(2500); // puedes ajustar el delay si quieres más dramatismo
 });
-
 
 document.addEventListener('DOMContentLoaded', () => {
   prepararModal();

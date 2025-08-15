@@ -140,15 +140,59 @@ body {
   transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
 }
 
-/* ===================================
-   🔝 BOTÓN VOLVER ARRIBA (ESTILO volver-rifa)
-=================================== */
+/* ================================
+   🔝 BOTÓN VOLVER ARRIBA
+================================ */
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(255, 0, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(255, 0, 0, 0.6);
+  }
+}
+
+@keyframes flashClick {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(255, 0, 255, 1);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
+}
+
+.btn-show {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.btn-hide {
+  animation: fadeOutDown 0.4s ease-in forwards;
+}
+
+
+
 #btnIrArriba {
   position: fixed;
   bottom: 50px;
   right: 25px;
-  z-index: 2000;
-  background-color: var(--text-dark);
+  z-index: 9999;
+  background-color: var(--text-dark); /* Fondo oscuro sólido */
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -158,15 +202,49 @@ body {
   min-width: 50px;
   max-width: 100%;
   font-weight: bold;
-  transition: background-color 0.3s ease;
   margin-top: 20px;
+  display: none;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  animation: neonPulse 2.5s ease-in-out infinite;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  display: none; /* Solo visible cuando hay scroll */
+  overflow: visible;
 }
 
+/* 🖱️ Hover con resplandor vibrante */
 #btnIrArriba:hover {
-  background-color: var(--blue-dark);
+  background-color: #5f0c5f;
+  box-shadow:
+    0 0 20px #ff00ff,
+    0 0 30px #ff0040,
+    0 0 40px #ff00ff;
 }
+
+/* 🚀 Activación */
+.btn-clicked {
+  animation: flashClick 0.4s ease;
+}
+
+/* ✨ Borde neón detrás del botón */
+#btnIrArriba::before {
+  content: '';
+  position: absolute;
+  inset: -6px; /* Se extiende más allá del botón */
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(45deg, #ff00ff, #ff0040);
+  background-size: 400% 400%;
+  animation: gradientShift 6s linear infinite;
+  filter: blur(12px); /* Luz difusa */
+  opacity: 0.3;
+}
+
+
+
 
 /* ===================================
    🌟 animacion de fondo
