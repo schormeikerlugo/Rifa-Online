@@ -18,4 +18,3 @@ export function ocultarPreloader(delay = 1000) {
     });
   }, delay);
 }
-

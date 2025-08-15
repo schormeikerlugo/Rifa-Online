@@ -47,4 +47,3 @@ export function inicializarBotonIrArriba(btnId = 'btnIrArriba', targetId = null)
     }
   });
 }
-

@@ -71,4 +71,3 @@ export function crearBarraDeProgreso(porcentaje) {
 
   return barra;
 }
-
