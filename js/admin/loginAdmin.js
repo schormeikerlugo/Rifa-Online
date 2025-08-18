@@ -3,6 +3,7 @@
 import { supabase } from './supabaseClient.js'
 import { mostrarModal } from './modalAdmin.js'
 import { mostrarElemento, ocultarElemento } from './uiAdminHelpers.js'
+import { cargarRifas } from './rifasAdmin.js';
 
 
 // ✅ Configura aquí tu correo de administrador
@@ -23,6 +24,7 @@ const btnVolver          = document.getElementById('btn-volver');
 
 
 // 🔐 Iniciar sesión
+
 if (loginForm) {
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -31,6 +33,7 @@ if (loginForm) {
     const password = document.getElementById('login-password').value.trim()
 
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+    cargarRifas();         // 🚀 Cargar rifas al inicio
 
     if (error || data?.user?.email !== ADMIN_EMAIL) {
       mostrarModal('⚠️ Acceso restringido al administrador', 'advertencia')
@@ -83,8 +86,6 @@ if (logoutBtn) {
     
         // ✅ Resetear el formulario
     loginForm.reset();
-
-
 
     // 🔒 Asegurar que no haya scroll sobrante
     document.body.style.overflow = 'hidden'

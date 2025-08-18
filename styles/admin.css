@@ -313,6 +313,109 @@ strong, p {
   transform: translateY(-1px);
 }
 
+
+/* ===================================
+   ⬆️ BOTÓN VOLVER ARRIBA
+=================================== */
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(0, 238, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(43, 255, 0, 0.6);
+  }
+}
+
+@keyframes flashClick {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 20px rgba(0, 255, 34, 0.9);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgb(0, 255, 179);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0, 255, 76, 0.5);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 200%;
+  }
+}
+
+.btn-show {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.btn-hide {
+  animation: fadeOutDown 0.4s ease-in forwards;
+}
+
+#btnIrArriba {
+  overflow-y: hidden!important;
+  position: fixed;
+  bottom: 50px;
+  right: 25px;
+  z-index: 9999;
+  background-color: var(--text-dark); /* Fondo oscuro sólido */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
+  min-width: 50px;
+  max-width: 100%;
+  font-weight: bold;
+  margin-top: 20px;
+  display: none;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  animation: neonPulse 2.5s ease-in-out infinite;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  overflow: visible;
+}
+
+/* 🖱️ Hover con resplandor vibrante */
+#btnIrArriba:hover {
+  background-color: #0c1b5f;
+  box-shadow:
+    0 0 20px #00ff62,
+    0 0 30px #0059ff,
+    0 0 40px #0011ff;
+}
+
+/* 🚀 Activación */
+.btn-clicked {
+  animation: flashClick 0.4s ease;
+}
+
+/* ✨ Borde neón detrás del botón */
+#btnIrArriba::before {
+  content: '';
+  position: absolute;
+  inset: -6px; /* Se extiende más allá del botón */
+  border-radius: inherit;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(45deg, #00ff62, #0059ff);
+  background-size: 400% 400%;
+  animation: gradientShift 6s linear infinite;
+  filter: blur(12px); /* Luz difusa */
+  opacity: 0.3;
+}
+
 /* ===================================
    🎴 TARJETAS DE ADMIN RIFAS
 =================================== */

@@ -1,20 +1,30 @@
 // 📁 admin.js
-// Punto de entrada principal del panel de administración
 
-import { cargarRifas } from './rifasAdmin.js';
 import { manejarFormularioRifa } from './formRifasAdmin.js';
 import { cargarReservasPorRifa, aprobarReserva, rechazarReserva } from './reservasAdmin.js';
 import { supabaseKey, supabase } from './supabaseClient.js';
 import { mostrarModalMensajeEditable } from './modalAdmin.js';
 import { mostrarFormulario, ocultarFormulario, volverAPrincipal, resetearFormularioRifa } from './utilsAdmin.js';
 import { prepararModal } from './modalAdmin.js';
+import { inicializarBotonIrArriba } from './scrollControlAdmin.js';
+import { cargarRifas } from './rifasAdmin.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+
   prepararModal();       // 🎬 Inicializar eventos de modal
-  cargarRifas();         // 🚀 Cargar rifas al inicio
+
+  // Cargar rifas al iniciar
+  
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (session?.user) {
+      // El usuario ha iniciado sesión, así que puedes cargar las rifas
+      cargarRifas();
+    }
+  });
 
   // Manejo del formulario
   const formRifa = document.getElementById('form-rifa');
+  
 
   // Crear nueva rifa
   document.getElementById('btn-crear')?.addEventListener('click', () => {  
@@ -120,4 +130,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  inicializarBotonIrArriba('btnIrArriba', 'descripcionRifa'); // Cambia 'descripcionRifa' por el id real de la descripción si lo tienes, o quítalo para ir al top
 });
