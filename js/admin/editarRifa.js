@@ -1,5 +1,6 @@
 // 📁 editarRifa.js
 import { mostrarFormulario } from './utilsAdmin.js';
+import { callFn } from './callFn.js';
 
 // 🛠️ Preparar el formulario con datos de la rifa a editar
 export function prepararEdicionRifa(btn, rifa) {
@@ -31,4 +32,17 @@ export function prepararEdicionRifa(btn, rifa) {
   preview.src = rifa.imagen_url;
 
   mostrarFormulario();
+}
+
+// 🛠️ Guardar cambios de edición usando Supabase Function
+export async function guardarEdicionRifa({ id, titulo, descripcion, fecha_inicio, fecha_fin, imagen_url, imagenes_extra }) {
+  const { data, error } = await callFn('admin-update-rifa', {
+    id, titulo, descripcion, fecha_inicio, fecha_fin, imagen_url, imagenes_extra
+  });
+
+  if (error) {
+    console.error("❌ Error actualizando la rifa:", error);
+    return null;
+  }
+  return data;
 }
