@@ -60,18 +60,32 @@ export function mostrarFormularioEdicion(rifa) {
 
 /* 📄 Mostrar información visual de la rifa en la sección de reservas */
 export function mostrarInfoDeRifa(rifa) {
-  const contenedor = document.getElementById('lista-reservas')
+  const contenedor = document.getElementById('lista-reservas');
 
   const infoRifaHtml = `
     <div class="detalle-rifa-admin">
-      <h2>${escapeHTML(rifa.titulo)}</h2>
-      <p>${escapeHTML(rifa.descripcion)}</p>
-      <p><strong>Inicio:</strong> ${new Date(rifa.fecha_inicio).toLocaleString()}</p>
-      <p><strong>Fin:</strong> ${new Date(rifa.fecha_fin).toLocaleString()}</p>
+      <h3 class="rifa-titulo">${escapeHTML(rifa.titulo)}</h3>
+      <p class="rifa-descripcion">${escapeHTML(rifa.descripcion)}</p>
+      <p>
+        <strong>Inicio:</strong> 
+        <span class="rifa-fecha-inicio">${new Date(rifa.fecha_inicio).toLocaleString()}</span>
+      </p>
+      <p>
+        <strong>Fin:</strong> 
+        <span class="rifa-fecha-fin">${new Date(rifa.fecha_fin).toLocaleString()}</span>
+      </p>
       <div class="galeria-extra">
-        ${Array.isArray(rifa.imagenes_extra) ? rifa.imagenes_extra.map(url => `<img src="${escapeHTML(url)}" alt="extra">`).join('') : ''}
+        ${
+          Array.isArray(rifa.imagenes_extra) 
+            ? rifa.imagenes_extra
+                .map(url => `<img class="rifa-imagen-extra" src="${escapeHTML(url)}" alt="extra">`)
+                .join('') 
+            : ''
+        }
       </div>
     </div>
-  `
-  contenedor.innerHTML += infoRifaHtml
+  `;
+
+  contenedor.innerHTML += infoRifaHtml;
 }
+

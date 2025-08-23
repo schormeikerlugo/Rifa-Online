@@ -35,7 +35,7 @@
     <!-- ════════════════════════════════════════════════════════ -->
     <!-- 🔹 ACCIONES GENERALES -->
     <section id="acciones-admin" class="oculto transicion">
-      <button id="btn-crear" class="btn btn-accent">➕ Crear nueva rifa</button>
+      <button id="btn-crear" class="btn btn-crear">➕ Crear nueva rifa</button>
     </section>
 
     <!-- ════════════════════════════════════════════════════════ -->
@@ -117,23 +117,12 @@
           <p class="rifa-descripcion"></p>
           <p><strong>Inicio:</strong> <span class="rifa-fecha-inicio"></span></p>
           <p><strong>Fin:</strong> <span class="rifa-fecha-fin"></span></p>
-          <div class="admin-rifa-btns">
-            <button class="btn btn-accent ver-reservas">Ver reservas</button>
-            <button class="btn btn-danger eliminar-rifa">Eliminar</button>
-            <button class="btn btn-outline editar-rifa">Editar</button>
-          </div>
         </div>
       </div>
     </template>
 
     <!-- ════════════════════════════════════════════════════════ -->
-    <!-- 🧾 FILTROS DE RESERVAS -->
-    <aside id="filtrosReservas" class="oculto filtros">
-      <button class="btn btn-filter filtro" data-filtro="pendiente">Pendientes</button>
-      <button class="btn btn-filter filtro" data-filtro="confirmado">Aprobadas</button>
-      <button class="btn btn-filter filtro" data-filtro="todas">Todas</button>
-    </aside>
-
+ 
     <!-- 📋 LISTA DE RESERVAS -->
     <section id="lista-reservas" class="oculto grid-reservas"></section>
 
@@ -159,7 +148,7 @@
         </div>
         <p id="modalMensaje">Aquí va el mensaje</p>
         <div class="btn-modal">
-          <button id="modalCerrar" class="btn btn-accent">Cerrar</button>  
+          <button id="modalCerrar" class="btn btn-modal">Cerrar</button>  
         </div>
       </div>
     </div>
@@ -176,7 +165,7 @@
   <!-- ════════════════════════════════════════════════════════ -->
 
     <!-- Botón para volver arriba -->
-  <button id="btnIrArriba" class="btn btn-accent" style="display:none;">
+  <button id="btnIrArriba" class="btn btn-arriba" style="display:none;">
     ⏫
   </button>
     <!-- ════════════════════════════════════════════════════════ -->

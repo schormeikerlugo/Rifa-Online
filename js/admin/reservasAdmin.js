@@ -1,126 +1,205 @@
-// js/admin/reservasAdmin.js
-import { supabase } from './supabaseClient.js'
-import { mostrarModal, mostrarModalConfirmacion } from './modalAdmin.js'
-import { mostrarInfoDeRifa } from './helpersAdmin.js'
+import { supabase } from './supabaseClient.js';
+import { mostrarModal, mostrarModalConfirmacion } from "./modalAdmin.js";
+import { obtenerReservas, moderarReserva } from "./supabaseFunctions.js";
+import { escapeHTML, mostrarReservasUI } from './utilsAdmin.js';
+import { mostrarInfoDeRifa } from './helpersAdmin.js';
 
-// Función para escapar HTML y evitar XSS
-function escapeHTML(str) {
-  return String(str ?? '').replace(/[&<>"']/g, s => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-  }[s]));
+/**
+ * 📌 Resalta el botón de filtro activo
+ */
+function marcarFiltroActivo(filtro) {
+  document.querySelectorAll('#filtrosReservas .filtro').forEach(btn => {
+    btn.classList.toggle('activo', btn.dataset.filtro === filtro);
+  });
 }
 
-/* 🔁 Cargar reservas y mostrar info de rifa */
-export async function cargarReservasPorRifa(rifaId, filtro = 'pendiente') {
-  const contenedor = document.getElementById('lista-reservas')
-  contenedor.innerHTML = ''
+/**
+ * 📌 Generar filtros dinámicamente
+ */
+function generarFiltros() {
+  const filtros = document.createElement("aside");
+  filtros.id = "filtrosReservas";
+  filtros.className = "filtros";
+  filtros.innerHTML = `
+    <button type="button" class="btn btn-filter filtro" data-filtro="pendiente">Pendientes</button>
+    <button type="button" class="btn btn-filter filtro" data-filtro="confirmado">Aprobadas</button>
+    <button type="button" class="btn btn-filter filtro" data-filtro="todas">Todas</button>
+  `;
+  return filtros;
+}
 
-  // 🔍 Obtener rifa
-  const { data: rifa, error: errorRifa } = await supabase
-    .from('rifas')
-    .select('*')
-    .eq('id', rifaId)
-    .single()
-
-  if (errorRifa) {
-    mostrarModal('❌ Error al cargar información de la rifa.', 'error')
-    return
+/**
+ * 📌 Renderizar reservas en el contenedor
+ */
+function renderizarReservas(reservas, contenedor, rifaId, filtro = "pendiente") {
+  if (!reservas.length) {
+    contenedor.innerHTML += '<p class="mensaje-final">No hay reservas disponibles.</p>';
+    return;
   }
 
-  mostrarInfoDeRifa(rifa)
+  reservas.forEach(reserva => {
+  const div = document.createElement("div");
+  div.className = "card";
 
-  // 🔍 Obtener reservas
-  let query = supabase
-    .from('numeros')
-    .select('*')
-    .eq('rifa_id', rifaId)
-    .order('fecha_seleccion', { ascending: true })
-
-  if (filtro !== 'todas') {
-    query = query.eq('estado', filtro)
-  } else {
-    query = query.neq('estado', 'disponible')
-  }
-
-  const { data, error } = await query
-
-  if (error) {
-    mostrarModal('❌ Error al cargar reservas.', 'error') //
-    return
-  }
-
-  if (!data.length) {
-    contenedor.innerHTML +=  '<p class="mensaje-final">No hay reservas disponibles.</p>'
-    return
-  }
-
-  // 📄 Mostrar reservas
-data.forEach(reserva => {
-  const div = document.createElement('div')
-  div.className = 'card'
+  // Construir el contenido HTML
   div.innerHTML = `
     <p><strong>🪙 Número:</strong> ${escapeHTML(reserva.numero)}</p>
     <p><strong>👤 Nombre:</strong> ${escapeHTML(reserva.nombre_cliente) || '-'}</p>
     <p><strong>📱 Teléfono:</strong> ${escapeHTML(reserva.telefono_cliente) || '-'}</p>
     <p><strong>📩 Correo:</strong> ${escapeHTML(reserva.correo_cliente) || '-'}</p>
     <p><strong>📍 Estado:</strong> ${escapeHTML(reserva.estado)}</p>
-    <a href="${escapeHTML(reserva.comprobante_url)}" target="_blank">🔗 Ver comprobante</a>
-    ${reserva.estado === 'pendiente' ? `
-      <div class="admin-rifa-btns">
-        <button class="aprobar" data-id="${escapeHTML(reserva.id)}">✅ Aprobar</button>
-        <button class="rechazar" data-id="${escapeHTML(reserva.id)}">🗑️ Rechazar</button>
-      </div>
-    ` : ''}
-  `
-  contenedor.appendChild(div)
-  })
+  `;
 
-  // 📌 Guardar contexto
-  contenedor.dataset.rifaId = rifaId
-  contenedor.dataset.filtro = filtro
-}
+  // Crear el enlace del comprobante con estilos
+  const linkComprobante = document.createElement("a");
+  linkComprobante.href = escapeHTML(reserva.comprobante_url);
+  linkComprobante.target = "_blank";
+  linkComprobante.classList.add("comprobante-link");
+  linkComprobante.textContent = "🔗 Ver comprobante";
 
-/* ✅ Aprobar reserva */
-export async function aprobarReserva(id) {
-  const confirmar = await mostrarModalConfirmacion ('¿Estás seguro que deseas aprobar esta reserva?', 'enviado', 'aprobar')
-  if (!confirmar) return false
+  div.appendChild(linkComprobante);
 
-  const { error } = await supabase
-    .from('numeros')
-    .update({ estado: 'confirmado' })
-    .eq('id', id)
+  // Botones si está pendiente
+  if (reserva.estado === "pendiente") {
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("admin-rifa-btns");
 
-  if (error) {
-    mostrarModal('Error al aprobar la reserva.', 'error') //❌
-    return false
+    const btnAprobar = document.createElement("button");
+    btnAprobar.textContent = "✅ Aprobar";
+    btnAprobar.classList.add("aprobar");
+    btnAprobar.dataset.id = escapeHTML(reserva.id);
+
+    const btnRechazar = document.createElement("button");
+    btnRechazar.textContent = "🗑️ Rechazar";
+    btnRechazar.classList.add("rechazar");
+    btnRechazar.dataset.id = escapeHTML(reserva.id);
+
+    btnContainer.appendChild(btnAprobar);
+    btnContainer.appendChild(btnRechazar);
+    div.appendChild(btnContainer);
   }
 
-  mostrarModal('Reserva aprobada correctamente.', 'aprobado') //✅
-  return true
+  contenedor.appendChild(div);
+});
+
+  contenedor.dataset.rifaId = rifaId;
+  contenedor.dataset.filtro = filtro;
 }
 
-/* 🗑️ Rechazar reserva */
-export async function rechazarReserva(id) {
-  const confirmar = await mostrarModalConfirmacion ('¿Estás seguro que deseas rechazar esta reserva y liberar el número?', 'advertencia', 'rechazar')
-  if (!confirmar) return false
+/**
+ * 📌 Cargar reservas de una rifa
+ * @param {string} rifaId - ID de la rifa
+ * @param {string} filtro - Filtro de estado
+ * @param {boolean} mantenerInfo - Si true, no recarga la info de la rifa ni los filtros
+ */
+export async function cargarReservas(rifaId, filtro = "pendiente", mantenerInfo = false) {
+  try {
+    const contenedor = document.getElementById("lista-reservas");
+    if (!contenedor) {
+      console.error("⚠️ No se encontró el contenedor #lista-reservas en el HTML");
+      return;
+    }
 
-  const { error } = await supabase
-    .from('numeros')
-    .update({
-      estado: 'disponible',
-      nombre_cliente: null,
-      correo_cliente: null,
-      telefono_cliente: null,
-      comprobante_url: null,
-      fecha_seleccion: null
-    })
-    .eq('id', id)
+    if (!mantenerInfo) {
+      contenedor.innerHTML = "";
 
-  if (error) {
-    mostrarModal('Error al rechazar la reserva.', 'error') //❌
-    return false
+      // 1️⃣ Obtener info de la rifa
+      const { data: rifa, error: errorRifa } = await supabase
+        .from('rifas')
+        .select('*')
+        .eq('id', rifaId)
+        .single();
+
+      if (errorRifa) {
+        mostrarModal('❌ Error al cargar información de la rifa.', 'error');
+        return;
+      }
+
+      // 📄 Mostrar info de la rifa
+      mostrarInfoDeRifa(rifa);
+
+      // 📌 Generar e insertar filtros
+      const filtros = generarFiltros();
+      contenedor.appendChild(filtros);
+    } else {
+      // Si mantenemos la info, borramos solo las reservas previas
+      document.querySelectorAll("#lista-reservas .card, #lista-reservas .mensaje-final")
+        .forEach(el => el.remove());
+    }
+
+    // 2️⃣ Obtener reservas
+    let reservas = await obtenerReservas(rifaId);
+
+    if (filtro === "pendiente") {
+      reservas = reservas.filter(r => r.estado === "pendiente");
+    } else if (filtro === "confirmado") {
+      reservas = reservas.filter(r => r.estado === "confirmado");
+    } else if (filtro === "todas") {
+      const ordenEstado = { pendiente: 1, confirmado: 2, rechazado: 3 };
+      reservas.sort((a, b) => ordenEstado[a.estado] - ordenEstado[b.estado]);
+    }
+
+    // 3️⃣ Renderizar reservas
+    renderizarReservas(reservas, contenedor, rifaId, filtro);
+
+    marcarFiltroActivo(filtro);
+  } catch (err) {
+    mostrarModal("❌ Error al cargar reservas: " + err.message, "error");
   }
 
-  mostrarModal('ℹ️ Reserva rechazada y número liberado.', 'aprobado') //ℹ️
-  return true
+  mostrarReservasUI();
 }
+
+/**
+ * 📌 Delegación de eventos
+ */
+document.addEventListener("click", async (event) => {
+  const btn = event.target;
+  const contenedor = document.getElementById("lista-reservas");
+
+  // --- Filtros ---
+  if (btn.closest('#filtrosReservas')?.classList.contains('filtros') && btn.classList.contains('filtro')) {
+    event.preventDefault();
+    const filtro = btn.dataset.filtro;
+    const rifaId = contenedor?.dataset.rifaId;
+    if (!rifaId) {
+      console.warn("⚠️ No hay rifaId definido en el dataset");
+      return;
+    }
+    await cargarReservas(rifaId, filtro, true); // 👈 mantenemos la info
+    return;
+  }
+
+  if (!contenedor) return;
+
+  const rifaId = contenedor.dataset.rifaId;
+  const filtro = contenedor.dataset.filtro || "pendiente";
+
+  // --- Aprobar ---
+  if (btn.classList.contains("aprobar")) {
+    event.preventDefault();
+    const reservaId = btn.dataset.id;
+    const confirmar = await mostrarModalConfirmacion("¿Aprobar esta reserva?");
+    if (confirmar) {
+      const result = await moderarReserva(reservaId, "aprobado");
+      if (result?.success) {
+        mostrarModal("✅ Reserva aprobada");
+        await cargarReservas(rifaId, filtro, true);
+      }
+    }
+  }
+
+  // --- Rechazar ---
+  if (btn.classList.contains("rechazar")) {
+    event.preventDefault();
+    const reservaId = btn.dataset.id;
+    const confirmar = await mostrarModalConfirmacion("¿Rechazar esta reserva?");
+    if (confirmar) {
+      const result = await moderarReserva(reservaId, "rechazado");
+      if (result?.success) {
+        mostrarModal("✅ Reserva rechazada");
+        await cargarReservas(rifaId, filtro, true);
+      }
+    }
+  }
+});
