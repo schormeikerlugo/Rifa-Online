@@ -23,7 +23,7 @@ export async function obtenerRifas() {
  */
 export async function crearRifa(rifaData) {
   try {
-    const response = await fetch("/functions/v1/admin-create-rifa", {
+    const response = await fetch("https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-create-rifa", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(rifaData),
@@ -45,7 +45,7 @@ export async function crearRifa(rifaData) {
  */
 export async function editarRifa(rifaId, updateData) {
   try {
-    const response = await fetch("/functions/v1/admin-update-rifa", {
+    const response = await fetch("https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-update-rifa", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ rifaId, updateData }),
@@ -67,7 +67,7 @@ export async function editarRifa(rifaId, updateData) {
  */
 export async function eliminarRifa(rifaId) {
   try {
-    const response = await fetch("/functions/v1/admin-delete-rifa", {
+    const response = await fetch("https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-delete-rifa", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ rifaId }),
@@ -106,7 +106,7 @@ export async function obtenerReservas(rifaId) {
  */
 export async function moderarReserva(reservaId, nuevoEstado) {
   try {
-    const response = await fetch("/functions/v1/admin-moderate-reserva", {
+    const response = await fetch("https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-moderate-reserva", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ reservaId, nuevoEstado }),
