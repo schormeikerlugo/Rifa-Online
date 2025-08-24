@@ -5,9 +5,6 @@ import { ocultarFormulario } from './utilsAdmin.js';
 import { cargarRifas } from './rifasAdmin.js';
 import { crearRifa, editarRifa } from './supabaseFunctions.js';
 
-/**
- * Maneja el formulario de creación o edición de rifas
- */
 export function manejarFormularioRifa(formRifa) {
   formRifa.addEventListener('submit', async e => {
     e.preventDefault();
@@ -30,22 +27,30 @@ export function manejarFormularioRifa(formRifa) {
     if (imagenFile) {
       const path = `rifas/${Date.now()}_${imagenFile.name}`;
       const { error: upErr } = await supabase.storage.from('comprobantes').upload(path, imagenFile);
-      if (upErr) { mostrarModal('Error al subir imagen.', 'error'); return; }
-      imagen_url = supabase.storage.from('comprobantes').getPublicUrl(path).data.publicUrl;
+      if (upErr) { mostrarModal('Error al subir imagen principal.', 'error'); return; }
+
+      const { data, error: urlErr } = supabase.storage.from('comprobantes').getPublicUrl(path);
+      if (urlErr) { mostrarModal('Error obteniendo URL pública de la imagen principal.', 'error'); return; }
+
+      imagen_url = data?.publicUrl;
     }
 
     // 📤 Subir imágenes extras
-    let imagenes_extra = JSON.parse(formRifa.dataset.imagenesExtrasActuales || '[]');
+    let imagenes_extra = [];
     if (extrasFiles.length) {
-      imagenes_extra = [];
       for (const file of extrasFiles) {
         const path = `rifas/extras/${Date.now()}_${file.name}`;
         const { error } = await supabase.storage.from('comprobantes').upload(path, file);
-        if (error) { mostrarModal(`Error al subir extra ${file.name}`, 'error'); return; }
-        imagenes_extra.push(supabase.storage.from('comprobantes').getPublicUrl(path).data.publicUrl);
+        if (error) { mostrarModal(`Error al subir imagen extra ${file.name}`, 'error'); return; }
+
+        const { data, error: urlErr } = supabase.storage.from('comprobantes').getPublicUrl(path);
+        if (urlErr) { mostrarModal(`Error obteniendo URL pública de ${file.name}`, 'error'); return; }
+
+        imagenes_extra.push(data?.publicUrl);
       }
     }
 
+    // 📌 Payload base
     const payload = { titulo, descripcion, fecha_inicio, fecha_fin };
     if (imagen_url) payload.imagen_url = imagen_url;
     if (imagenes_extra.length) payload.imagenes_extra = imagenes_extra;
@@ -57,13 +62,17 @@ export function manejarFormularioRifa(formRifa) {
       mostrarModal('Rifa actualizada con éxito.', 'aprobado');
     } else {
       // Creación
-      const cantidad_numeros = parseInt(formRifa.cantidad_numeros.value);
+      const cantidadNumeros = parseInt(formRifa.cantidad_numeros.value);
       if (!imagen_url) { mostrarModal('Debes subir imagen principal.', 'info'); return; }
+      if (isNaN(cantidadNumeros) || cantidadNumeros <= 0) {
+        mostrarModal('Debes ingresar una cantidad válida de números.', 'info');
+        return;
+      }
 
-      const nuevaRifa = { ...payload, cantidad_numeros };
+      const nuevaRifa = { ...payload, cantidadNumeros };
       const ok = await crearRifa(nuevaRifa);
       if (!ok) return;
-      mostrarModal(`Rifa creada con ${cantidad_numeros} números.`, 'aprobado');
+      mostrarModal(`Rifa creada con ${cantidadNumeros} números.`, 'aprobado');
     }
 
     ocultarFormulario();

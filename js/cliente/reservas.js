@@ -90,7 +90,7 @@ document.getElementById('btnConfirmar').addEventListener('click', async () => {
   resetearFormulario('#formularioReserva');
   ocultarElemento('#formularioReserva');
   mostrarElemento('#rifasSection');
-  await cargarRifas(); // Recargar las rifas para reflejar el cambio
+  
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 

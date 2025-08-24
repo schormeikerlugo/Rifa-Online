@@ -181,7 +181,7 @@ document.addEventListener("click", async (event) => {
     const reservaId = btn.dataset.id;
     const confirmar = await mostrarModalConfirmacion("¿Aprobar esta reserva?");
     if (confirmar) {
-      const result = await moderarReserva(reservaId, "aprobado");
+      const result = await moderarReserva(reservaId, "confirmado");
       if (result?.success) {
         mostrarModal("✅ Reserva aprobada");
         await cargarReservas(rifaId, filtro, true);
@@ -195,7 +195,7 @@ document.addEventListener("click", async (event) => {
     const reservaId = btn.dataset.id;
     const confirmar = await mostrarModalConfirmacion("¿Rechazar esta reserva?");
     if (confirmar) {
-      const result = await moderarReserva(reservaId, "rechazado");
+      const result = await moderarReserva(reservaId, "disponible");
       if (result?.success) {
         mostrarModal("✅ Reserva rechazada");
         await cargarReservas(rifaId, filtro, true);

@@ -1,7 +1,9 @@
 // 📁 rifasAdmin.js
 import { mostrarModal, mostrarModalConfirmacion } from './modalAdmin.js';
-import { obtenerRifas, editarRifa, eliminarRifa, obtenerReservas } from './supabaseFunctions.js';
+import { obtenerRifas, eliminarRifa } from './supabaseFunctions.js';
 import { cargarReservas } from './reservasAdmin.js';
+// 👇 Importa la función para abrir el formulario de edición
+import { abrirFormularioEdicion } from './editarRifa.js';
 
 /**
  * 📌 Cargar rifas en la interfaz usando el template HTML
@@ -46,12 +48,12 @@ export async function cargarRifas() {
       const btnContainer = document.createElement("div");
       btnContainer.classList.add("admin-rifa-btns");
 
+      // 🔹 Cambiado: ahora abre el formulario de edición
       const btnEditar = document.createElement("button");
       btnEditar.textContent = "Editar";
       btnEditar.classList.add("btn", "btn-accent");
-      btnEditar.addEventListener("click", async () => {
-        const result = await editarRifa(rifa.id, { titulo: "Nuevo título demo" });
-        if (result) mostrarModal("✅ Rifa editada con éxito");
+      btnEditar.addEventListener("click", () => {
+        abrirFormularioEdicion(rifa); // 👈 aquí abrimos el modal con los datos de la rifa
       });
       btnContainer.appendChild(btnEditar);
 

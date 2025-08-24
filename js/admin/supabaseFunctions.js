@@ -3,13 +3,52 @@ import { supabase } from './supabaseClient.js';
 import { mostrarModal } from './modalAdmin.js';
 
 /**
+ * 📌 Obtener token del admin logueado
+ */
+async function obtenerTokenAdmin() {
+  const { data: { session } } = await supabase.auth.getSession();
+  const token = session?.access_token;
+  if (!token) throw new Error("No hay sesión activa. Inicia sesión como admin.");
+  return token;
+}
+
+/**
+ * 📌 Llamada genérica a Edge Function con token (JSON)
+ */
+async function llamarEdgeFunction(url, method = "POST", body = {}) {
+  try {
+    const token = await obtenerTokenAdmin();
+
+    const response = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(body)
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(data.error || `Error en función ${url}`);
+    }
+
+    return data;
+  } catch (err) {
+    mostrarModal("❌ " + err.message);
+    return null;
+  }
+}
+
+/**
  * 📌 Obtener rifas
  */
 export async function obtenerRifas() {
   const { data, error } = await supabase
     .from("rifas")
     .select("*")
-    .order("id", { ascending: false }); // ordenamos por id descendente
+    .order("id", { ascending: false });
   if (error) {
     mostrarModal("❌ Error al obtener rifas: " + error.message);
     return [];
@@ -17,71 +56,41 @@ export async function obtenerRifas() {
   return data || [];
 }
 
-
 /**
  * 📌 Crear rifa vía Edge Function
  */
 export async function crearRifa(rifaData) {
-  try {
-    const response = await fetch("https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-create-rifa", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(rifaData),
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al crear rifa");
-    }
-
-    return await response.json();
-  } catch (err) {
-    mostrarModal("❌ Error creando rifa: " + err.message);
-    return null;
-  }
+  return await llamarEdgeFunction(
+    "https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-create-rifa",
+    "POST",
+    rifaData
+  );
 }
 
 /**
- * 📌 Editar rifa vía Edge Function
+ * 📌 Editar rifa vía Edge Function (JSON plano)
+ *     -> Las imágenes YA deben haberse subido a Storage en el frontend.
+ *     -> Aquí solo mandamos las URLs nuevas (si las hay).
  */
 export async function editarRifa(rifaId, updateData) {
-  try {
-    const response = await fetch("https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-update-rifa", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ rifaId, updateData }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al editar rifa");
-    }
-
-    return await response.json();
-  } catch (err) {
-    mostrarModal("❌ Error editando rifa: " + err.message);
-    return null;
-  }
+  // NOTE: updateData debe contener campos como:
+  // { titulo, descripcion, fecha_inicio, fecha_fin, imagen_url, imagenes_extra }
+  return await llamarEdgeFunction(
+    "https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-edit-rifa",
+    "PATCH",
+    { rifaId, ...updateData }   // << importante: expandir, no anidar
+  );
 }
 
 /**
  * 📌 Eliminar rifa vía Edge Function
  */
 export async function eliminarRifa(rifaId) {
-  try {
-    const response = await fetch("https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-delete-rifa", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ rifaId }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al eliminar rifa");
-    }
-
-    return await response.json();
-  } catch (err) {
-    mostrarModal("❌ Error eliminando rifa: " + err.message);
-    return null;
-  }
+  return await llamarEdgeFunction(
+    "https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-delete-rifa",
+    "DELETE",
+    { rifaId }
+  );
 }
 
 /**
@@ -105,20 +114,9 @@ export async function obtenerReservas(rifaId) {
  * 📌 Moderar reserva (aprobar/rechazar)
  */
 export async function moderarReserva(reservaId, nuevoEstado) {
-  try {
-    const response = await fetch("https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-moderate-reserva", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ reservaId, nuevoEstado }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Error al moderar reserva");
-    }
-
-    return await response.json();
-  } catch (err) {
-    mostrarModal("❌ Error moderando reserva: " + err.message);
-    return null;
-  }
+  return await llamarEdgeFunction(
+    "https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/admin-moderate-reserva",
+    "POST",
+    { numeroId: reservaId, nuevoEstado }
+  );
 }
