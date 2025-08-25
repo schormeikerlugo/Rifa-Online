@@ -2,7 +2,7 @@
 
 # 🎟️ Plataforma de Rifas Online
 
-Bienvenido a la plataforma de rifas en línea. Esta aplicación permite a los usuarios participar en rifas seleccionando números y subiendo comprobantes de pago, mientras que los administradores pueden gestionar rifas, validar reservas y controlar todo desde un panel exclusivo...
+Bienvenido a la plataforma de rifas en línea. Esta aplicación permite a los usuarios participar en rifas seleccionando números y subiendo comprobantes de pago, mientras que los administradores pueden gestionar rifas, validar reservas y controlar todo desde un panel exclusivo.
 
 ![status](https://img.shields.io/badge/status-en%20desarrollo-yellow)
 ![HTML](https://img.shields.io/badge/Frontend-HTML%2FCSS%2FJS-blue)
