@@ -120,3 +120,45 @@ export async function moderarReserva(reservaId, nuevoEstado) {
     { numeroId: reservaId, nuevoEstado }
   );
 }
+
+/**
+ * 📌 Reservar número desde cliente (sin login)
+ */
+export async function reservarNumeroCliente(datosReserva) {
+  try {
+    const response = await fetch(
+      "https://wvebiyuoszwzsxavoitp.supabase.co/functions/v1/cliente-reservar-numero",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datosReserva)
+      }
+    );
+
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(data.error || "Error al reservar número");
+    }
+
+    return data;
+  } catch (err) {
+    console.error("❌ Error en reserva cliente:", err.message);
+    return null;
+  }
+}
+
+export async function subirComprobante(archivo, numeroSel) {
+  const nombreLimpio = archivo.name.replace(/\s+/g, '_').replace(/[^\w.-]/g, '');
+  const path = `${numeroSel}_${Date.now()}_${nombreLimpio}`;
+
+  const { error: upErr } = await supabase.storage.from('comprobantes').upload(path, archivo);
+  if (upErr) throw new Error('Error al subir comprobante');
+
+  const { data: pu, error: puErr } = await supabase.storage.from('comprobantes').getPublicUrl(path);
+  if (puErr || !pu?.publicUrl) throw new Error('No se pudo obtener el enlace del comprobante');
+
+  return pu.publicUrl;
+}

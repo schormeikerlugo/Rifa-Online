@@ -1,4 +1,6 @@
-import { supabase } from '../../../api/supabaseAdmin.js';
+//reservas.js
+
+import { subirComprobante, reservarNumeroCliente } from '../../../api/supabaseFunctions.js';
 import { mostrarElemento, ocultarElemento, actualizarTexto, resetearFormulario, mostrarSeccion } from '../ui/uiHelpers.js';
 import { mostrarModal } from '../ui/modal/modal.js';
 import { mostrarNumerosPorRifa } from '../ui/numerosUI.js';
@@ -49,54 +51,35 @@ document.getElementById('btnConfirmar').addEventListener('click', async () => {
     return mostrarModal('Archivo no permitido o demasiado grande (máx 2MB). Solo JPG, PNG o PDF.', 'advertencia');
   }
 
-  const path = `${numeroSel}_${Date.now()}_${archivo.name}`;
-  const { error: upErr } = await supabase.storage.from('comprobantes').upload(path, archivo);
-  if (upErr) return mostrarModal('Error al subir comprobante. Intenta nuevamente.', 'error');
+  // 🧠 Subida + reserva encapsulada
+  try {
+    const comprobante_url = await subirComprobante(archivo, numeroSel);
 
-  const { data: pu, error: puErr } = await supabase.storage.from('comprobantes').getPublicUrl(path);
-  if (puErr) return mostrarModal('No se pudo obtener el enlace del comprobante.', 'error');
+    const resultado = await reservarNumeroCliente({
+      numero: numeroSel,
+      rifa_id: rifaSel,
+      nombre,
+      correo,
+      telefono,
+      comprobante_url
+    });
 
-  // Verificar si el número sigue disponible
-  const { data: disponibilidad, error: errVerificar } = await supabase
-    .from('numeros')
-    .select('estado')
-    .eq('numero', numeroSel)
-    .eq('rifa_id', rifaSel)
-    .single();
+    if (!resultado || resultado.error) {
+      return mostrarModal(resultado?.error || 'No se pudo realizar la reserva.', 'error');
+    }
 
-  if (errVerificar || !disponibilidad || disponibilidad.estado !== 'disponible') {
-    return mostrarModal('Ese número ya fue reservado. Por favor, elige otro.', 'advertencia');
+    mostrarModal('¡Reserva enviada! Te notificaremos cuando tu comprobante sea verificado.', 'exito');
+
+    numeroSel = null;
+    rifaSel = null;
+    resetearFormulario('#formularioReserva');
+    ocultarElemento('#formularioReserva');
+    mostrarElemento('#rifasSection');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } catch (err) {
+    mostrarModal('❌ ' + err.message);
   }
-
-  const { error: updErr } = await supabase
-    .from('numeros')
-    .update({
-      estado: 'pendiente',
-      nombre_cliente: nombre,
-      correo_cliente: correo,
-      telefono_cliente: telefono,
-      fecha_seleccion: new Date().toISOString(),
-      comprobante_url: pu.publicUrl
-    })
-    .eq('numero', numeroSel)
-    .eq('rifa_id', rifaSel);
-
-    if (updErr) {
-  console.error('Error al actualizar número:', updErr);
-  return mostrarModal('No se pudo realizar la reserva.', 'error');
-}
-
-  if (updErr) return mostrarModal('No se pudo realizar la reserva.', 'error');
-
-  mostrarModal('¡Reserva enviada! Te notificaremos cuando tu comprobante sea verificado.', 'exito');
-
-  numeroSel = null;
-  rifaSel = null;
-  resetearFormulario('#formularioReserva');
-  ocultarElemento('#formularioReserva');
-  mostrarElemento('#rifasSection');
-  
-  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 // ✅ Botón para volver a seleccionar un número
