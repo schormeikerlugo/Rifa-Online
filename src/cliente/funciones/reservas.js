@@ -1,4 +1,4 @@
-import { client } from '../../../api/supabaseClient.js';
+import { client } from '../../../js/supabaseClient.js';
 import { mostrarElemento, ocultarElemento, actualizarTexto, resetearFormulario, mostrarSeccion } from '../ui/uiHelpers.js';
 import { mostrarModal } from '../ui/modal/modal.js';
 import { mostrarNumerosPorRifa } from '../ui/numerosUI.js';
