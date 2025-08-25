@@ -1,4 +1,4 @@
-import { client } from '../../../js/supabaseClient.js';
+import { supabase } from '../../../api/supabaseAdmin.js';
 import { mostrarElemento, ocultarElemento, actualizarTexto, resetearFormulario, mostrarSeccion } from '../ui/uiHelpers.js';
 import { mostrarModal } from '../ui/modal/modal.js';
 import { mostrarNumerosPorRifa } from '../ui/numerosUI.js';
@@ -50,14 +50,14 @@ document.getElementById('btnConfirmar').addEventListener('click', async () => {
   }
 
   const path = `${numeroSel}_${Date.now()}_${archivo.name}`;
-  const { error: upErr } = await client.storage.from('comprobantes').upload(path, archivo);
+  const { error: upErr } = await supabase.storage.from('comprobantes').upload(path, archivo);
   if (upErr) return mostrarModal('Error al subir comprobante. Intenta nuevamente.', 'error');
 
-  const { data: pu, error: puErr } = await client.storage.from('comprobantes').getPublicUrl(path);
+  const { data: pu, error: puErr } = await supabase.storage.from('comprobantes').getPublicUrl(path);
   if (puErr) return mostrarModal('No se pudo obtener el enlace del comprobante.', 'error');
 
   // Verificar si el número sigue disponible
-  const { data: disponibilidad, error: errVerificar } = await client
+  const { data: disponibilidad, error: errVerificar } = await supabase
     .from('numeros')
     .select('estado')
     .eq('numero', numeroSel)
@@ -68,7 +68,7 @@ document.getElementById('btnConfirmar').addEventListener('click', async () => {
     return mostrarModal('Ese número ya fue reservado. Por favor, elige otro.', 'advertencia');
   }
 
-  const { error: updErr } = await client
+  const { error: updErr } = await supabase
     .from('numeros')
     .update({
       estado: 'pendiente',

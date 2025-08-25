@@ -1,5 +1,5 @@
 // public/js/numerosUI.js
-import { client } from '../../../js/supabaseClient.js';
+import { supabase } from '../../../api/supabaseAdmin.js';
 import { mostrarFormularioReserva } from '../funciones/reservas.js';
 import { mostrarSeccion } from './uiHelpers.js';
 import { mostrarInfoRifa } from './infoRifaUI.js';
@@ -9,7 +9,7 @@ export async function mostrarNumerosPorRifa(rifaId, datosRifa) {
   mostrarInfoRifa(datosRifa);
 
   // 🔄 Cargar los números
-  const { data, error } = await client
+  const { data, error } = await supabase
     .from('numeros')
     .select('numero, estado')
     .eq('rifa_id', rifaId)

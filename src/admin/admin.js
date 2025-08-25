@@ -1,5 +1,5 @@
 import { manejarFormularioRifa } from '../admin/funciones/formRifasAdmin.js';
-import { supabaseKey, supabase } from '../../js/supabaseAdmin.js';
+import { supabaseKey, supabase } from '../../api/supabaseAdmin.js';
 import { mostrarFormulario, ocultarFormulario, volverAPrincipal, resetearFormularioRifa } from '../admin/ui/utilsAdmin.js';
 import { prepararModal } from '../admin/ui/modal/modalAdmin.js';
 import { inicializarBotonIrArriba } from '../admin/ui/scrollControlAdmin.js';

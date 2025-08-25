@@ -1,6 +1,6 @@
 // 📁 rifasAdmin.js
 import { mostrarModal, mostrarModalConfirmacion } from '../ui/modal/modalAdmin.js';
-import { obtenerRifas, eliminarRifa } from '../../../js/supabaseFunctions.js';
+import { obtenerRifas, eliminarRifa } from '../../../api/supabaseFunctions.js';
 import { cargarReservas } from './reservasAdmin.js';
 // 👇 Importa la función para abrir el formulario de edición
 import { abrirFormularioEdicion } from './editarRifa.js';

@@ -1,10 +1,10 @@
 // js/cargarRifas.js
-import { client } from '../../../js/supabaseClient.js';
+import { supabase } from '../../../api/supabaseAdmin.js';
 import { mostrarNumerosPorRifa } from '../ui/numerosUI.js';
 import { mostrarSeccion, crearBarraDeProgreso } from '../ui/uiHelpers.js';
 
 async function obtenerPorcentajeOcupado(rifaId) {
-  const { data, error } = await client
+  const { data, error } = await supabase
     .from('numeros')
     .select('estado')
     .eq('rifa_id', rifaId);
@@ -18,7 +18,7 @@ async function obtenerPorcentajeOcupado(rifaId) {
 }
 
 export async function cargarRifas() {
-  const { data, error } = await client
+  const { data, error } = await supabase
     .from('rifas')
     .select('id, titulo, descripcion, imagen_url, fecha_inicio, fecha_fin, imagenes_extra')
     .order('fecha_inicio', { ascending: true });
