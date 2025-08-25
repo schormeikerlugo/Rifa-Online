@@ -1,9 +1,9 @@
 // 📁 formRifasAdmin.js
-import { supabase } from '../../api/supabaseAdmin.js';
+import { supabase } from '../../../js/supabaseAdmin.js';
 import { mostrarModal } from '../ui/modal/modalAdmin.js';
 import { ocultarFormulario } from '../ui/utilsAdmin.js';
 import { cargarRifas } from './rifasAdmin.js';
-import { crearRifa, editarRifa } from '../../api/supabaseFunctions.js';
+import { crearRifa, editarRifa } from '../../../js/supabaseFunctions.js';
 
 export function manejarFormularioRifa(formRifa) {
   formRifa.addEventListener('submit', async e => {

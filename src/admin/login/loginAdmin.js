@@ -1,6 +1,6 @@
 // loginAdmin.js
 
-import { supabase } from '../../api/supabaseAdmin.js'
+import { supabase } from '../../../js/supabaseAdmin.js'
 import { mostrarModal } from '../ui/modal/modalAdmin.js'
 import { mostrarElemento, ocultarElemento } from '../ui/uiAdminHelpers.js'
 import { cargarRifas } from '../funciones/rifasAdmin.js';
