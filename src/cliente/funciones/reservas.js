@@ -81,6 +81,11 @@ document.getElementById('btnConfirmar').addEventListener('click', async () => {
     .eq('numero', numeroSel)
     .eq('rifa_id', rifaSel);
 
+    if (updErr) {
+  console.error('Error al actualizar número:', updErr);
+  return mostrarModal('No se pudo realizar la reserva.', 'error');
+}
+
   if (updErr) return mostrarModal('No se pudo realizar la reserva.', 'error');
 
   mostrarModal('¡Reserva enviada! Te notificaremos cuando tu comprobante sea verificado.', 'exito');
