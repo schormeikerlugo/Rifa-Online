@@ -1,5 +1,5 @@
 // public/js/numerosUI.js
-import { client } from '../../api/supabaseClient.js';
+import { client } from '../../../api/supabaseClient.js';
 import { mostrarFormularioReserva } from '../funciones/reservas.js';
 import { mostrarSeccion } from './uiHelpers.js';
 import { mostrarInfoRifa } from './infoRifaUI.js';

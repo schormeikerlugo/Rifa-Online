@@ -1,5 +1,5 @@
 // js/cargarRifas.js
-import { client } from '../../api/supabaseClient.js';
+import { client } from '../../../api/supabaseClient.js';
 import { mostrarNumerosPorRifa } from '../ui/numerosUI.js';
 import { mostrarSeccion, crearBarraDeProgreso } from '../ui/uiHelpers.js';
 
