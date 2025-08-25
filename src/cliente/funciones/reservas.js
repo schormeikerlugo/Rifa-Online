@@ -1,7 +1,7 @@
-import { client } from './supabaseClient.js';
-import { mostrarElemento, ocultarElemento, actualizarTexto, resetearFormulario, mostrarSeccion } from './uiHelpers.js';
-import { mostrarModal } from './modal.js';
-import { mostrarNumerosPorRifa } from './numerosUI.js';
+import { client } from '../../api/supabaseClient.js';
+import { mostrarElemento, ocultarElemento, actualizarTexto, resetearFormulario, mostrarSeccion } from '../ui/uiHelpers.js';
+import { mostrarModal } from '../ui/modal/modal.js';
+import { mostrarNumerosPorRifa } from '../ui/numerosUI.js';
 
 let numeroSel = null;
 let rifaSel = null;

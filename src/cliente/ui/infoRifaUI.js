@@ -1,6 +1,6 @@
 // infoRifaUI.js
 import { mostrarElemento, actualizarTexto } from './uiHelpers.js';
-import { mostrarModal } from './modal.js';
+import { mostrarModal } from '../ui/modal/modal.js';
 
 export function mostrarInfoRifa(datosRifa) {
   if (!datosRifa) {

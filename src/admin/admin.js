@@ -1,9 +1,9 @@
-import { manejarFormularioRifa } from './formRifasAdmin.js';
-import { supabaseKey, supabase } from './supabaseClient.js';
-import { mostrarFormulario, ocultarFormulario, volverAPrincipal, resetearFormularioRifa } from './utilsAdmin.js';
-import { prepararModal } from './modalAdmin.js';
-import { inicializarBotonIrArriba } from './scrollControlAdmin.js';
-import { cargarRifas } from './rifasAdmin.js';
+import { manejarFormularioRifa } from '../admin/funciones/formRifasAdmin.js';
+import { supabaseKey, supabase } from '../api/supabaseAdmin.js';
+import { mostrarFormulario, ocultarFormulario, volverAPrincipal, resetearFormularioRifa } from '../admin/ui/utilsAdmin.js';
+import { prepararModal } from '../admin/ui/modal/modalAdmin.js';
+import { inicializarBotonIrArriba } from '../admin/ui/scrollControlAdmin.js';
+import { cargarRifas } from '../admin/funciones/rifasAdmin.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   prepararModal();

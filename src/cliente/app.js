@@ -1,9 +1,9 @@
 // public/js/app.js
-import { cargarRifas } from './cargarRifas.js';
-import { mostrarSeccion } from './uiHelpers.js';
-import { prepararModal } from './modal.js';
-import { inicializarBotonIrArriba } from './scrollControl.js';
-import { mostrarPreloader, ocultarPreloader } from './preloader.js';
+import { cargarRifas } from '../cliente/funciones/cargarRifas.js';
+import { mostrarSeccion } from '../cliente/ui/uiHelpers.js';
+import { prepararModal } from '../cliente/ui/modal/modal.js';
+import { inicializarBotonIrArriba } from '../cliente/ui/scrollControl.js';
+import { mostrarPreloader, ocultarPreloader } from '../cliente/ui/preloader/preloader.js';
 
 // Mostrar el preloader al inicio
 mostrarPreloader();

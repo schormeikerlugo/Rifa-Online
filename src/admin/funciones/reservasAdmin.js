@@ -1,7 +1,7 @@
-import { supabase } from './supabaseClient.js';
-import { mostrarModal, mostrarModalConfirmacion } from "./modalAdmin.js";
-import { obtenerReservas, moderarReserva } from "./supabaseFunctions.js";
-import { escapeHTML, mostrarReservasUI } from './utilsAdmin.js';
+import { supabase } from '../../api/supabaseAdmin.js';
+import { mostrarModal, mostrarModalConfirmacion } from "../ui/modal/modalAdmin.js";
+import { obtenerReservas, moderarReserva } from "../../api/supabaseFunctions.js";
+import { escapeHTML, mostrarReservasUI } from '../ui/utilsAdmin.js';
 import { mostrarInfoDeRifa } from './helpersAdmin.js';
 
 /**

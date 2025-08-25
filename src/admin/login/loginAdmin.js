@@ -1,9 +1,9 @@
 // loginAdmin.js
 
-import { supabase } from './supabaseClient.js'
-import { mostrarModal } from './modalAdmin.js'
-import { mostrarElemento, ocultarElemento } from './uiAdminHelpers.js'
-import { cargarRifas } from './rifasAdmin.js';
+import { supabase } from '../../api/supabaseAdmin.js'
+import { mostrarModal } from '../ui/modal/modalAdmin.js'
+import { mostrarElemento, ocultarElemento } from '../ui/uiAdminHelpers.js'
+import { cargarRifas } from '../funciones/rifasAdmin.js';
 
 
 // ✅ Configura aquí tu correo de administrador

@@ -1,6 +1,6 @@
 // 📁 supabaseFunctions.js
-import { supabase } from './supabaseClient.js';
-import { mostrarModal } from './modalAdmin.js';
+import { supabase } from '../api/supabaseAdmin.js';
+import { mostrarModal } from '../admin/ui/modal/modalAdmin.js';
 
 /**
  * 📌 Obtener token del admin logueado

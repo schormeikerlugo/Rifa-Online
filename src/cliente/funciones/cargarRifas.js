@@ -1,7 +1,7 @@
 // js/cargarRifas.js
-import { client } from './supabaseClient.js';
-import { mostrarNumerosPorRifa } from './numerosUI.js';
-import { mostrarSeccion, crearBarraDeProgreso } from './uiHelpers.js';
+import { client } from '../../api/supabaseClient.js';
+import { mostrarNumerosPorRifa } from '../ui/numerosUI.js';
+import { mostrarSeccion, crearBarraDeProgreso } from '../ui/uiHelpers.js';
 
 async function obtenerPorcentajeOcupado(rifaId) {
   const { data, error } = await client

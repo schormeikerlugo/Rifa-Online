@@ -1,5 +1,5 @@
 // 📁 editarRifa.js
-import { mostrarFormulario } from './utilsAdmin.js';
+import { mostrarFormulario } from '../ui/utilsAdmin.js';
 
 /**
  * Prepara el formulario para editar una rifa existente

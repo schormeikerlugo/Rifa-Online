@@ -1,6 +1,6 @@
 // js/admin/helpersAdmin.js
-import { mostrarElemento, ocultarElemento} from './uiAdminHelpers.js'
-import { escapeHTML } from './utilsAdmin.js';
+import { mostrarElemento, ocultarElemento} from '../ui/uiAdminHelpers.js'
+import { escapeHTML } from '../ui/utilsAdmin.js';
 
 
 /* 📝 Mostrar formulario con datos de una rifa (modo edición) */
