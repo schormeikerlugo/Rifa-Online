@@ -71,3 +71,13 @@ export function crearBarraDeProgreso(porcentaje) {
 
   return barra;
 }
+
+// 🥘  Ocultar Loader Reserva
+
+export function mostrarLoader() {
+  document.getElementById('loaderReserva').style.display = 'flex';
+}
+
+export function ocultarLoader() {
+  document.getElementById('loaderReserva').style.display = 'none';
+}

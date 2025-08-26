@@ -1,7 +1,13 @@
-//reservas.js
-
 import { subirComprobante, reservarNumeroCliente } from '../../../api/supabaseFunctions.js';
-import { mostrarElemento, ocultarElemento, actualizarTexto, resetearFormulario, mostrarSeccion } from '../ui/uiHelpers.js';
+import {
+  mostrarElemento,
+  ocultarElemento,
+  actualizarTexto,
+  resetearFormulario,
+  mostrarSeccion,
+  mostrarLoader,
+  ocultarLoader
+} from '../ui/uiHelpers.js';
 import { mostrarModal } from '../ui/modal/modal.js';
 import { mostrarNumerosPorRifa } from '../ui/numerosUI.js';
 
@@ -18,13 +24,13 @@ export function mostrarFormularioReserva(num, rifaId) {
   form.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Funciones de validación
+// Validaciones
 function validarEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 function validarTelefono(telefono) {
-  return /^\d{7,15}$/.test(telefono); // Ajusta según tu país
+  return /^\d{7,15}$/.test(telefono);
 }
 
 document.getElementById('btnConfirmar').addEventListener('click', async () => {
@@ -45,14 +51,14 @@ document.getElementById('btnConfirmar').addEventListener('click', async () => {
     return mostrarModal('Teléfono inválido. Solo números, entre 7 y 15 dígitos.', 'advertencia');
   }
 
-  // Validación de tipo y tamaño de archivo
   const tiposPermitidos = ['image/png', 'image/jpeg', 'application/pdf'];
   if (!tiposPermitidos.includes(archivo.type) || archivo.size > 2 * 1024 * 1024) {
     return mostrarModal('Archivo no permitido o demasiado grande (máx 2MB). Solo JPG, PNG o PDF.', 'advertencia');
   }
 
-  // 🧠 Subida + reserva encapsulada
   try {
+    mostrarLoader();
+
     const comprobante_url = await subirComprobante(archivo, numeroSel);
 
     const resultado = await reservarNumeroCliente({
@@ -64,8 +70,14 @@ document.getElementById('btnConfirmar').addEventListener('click', async () => {
       comprobante_url
     });
 
+    ocultarLoader();
+
     if (!resultado || resultado.error) {
-      return mostrarModal(resultado?.error || 'No se pudo realizar la reserva.', 'error');
+      if (resultado.error === 'numero_ocupado') {
+        return mostrarModal(`😕 El número ${numeroSel} ya fue reservado por otra persona. Por favor, elige otro disponible.`, 'error');
+      }
+
+      return mostrarModal(resultado.error || 'No se pudo realizar la reserva.', 'error');
     }
 
     mostrarModal('¡Reserva enviada! Te notificaremos cuando tu comprobante sea verificado.', 'exito');
@@ -78,11 +90,12 @@ document.getElementById('btnConfirmar').addEventListener('click', async () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
   } catch (err) {
+    ocultarLoader();
     mostrarModal('❌ ' + err.message);
   }
 });
 
-// ✅ Botón para volver a seleccionar un número
+// Botón para volver a seleccionar un número
 document.getElementById('formVolver').addEventListener('click', async () => {
   resetearFormulario('#formularioReserva');
   ocultarElemento('#formularioReserva');
