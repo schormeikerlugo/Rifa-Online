@@ -477,25 +477,18 @@ h2, h3 {
 
 
 /* 🎨 Colores por porcentaje usando data-progreso */
-.barra-relleno[data-progreso^="0"],
-.barra-relleno[data-progreso^="1"],
-.barra-relleno[data-progreso^="2"],
-.barra-relleno[data-progreso^="3"],
-.barra-relleno[data-progreso^="4"] {
-  background: linear-gradient(90deg, var(--casino-blue), var(--casino-green)); /* Azul-Verde */
+.barra-relleno.progreso-bajo {
+  background: linear-gradient(90deg, var(--casino-blue), var(--casino-green));
 }
 
-.barra-relleno[data-progreso^="5"],
-.barra-relleno[data-progreso^="6"],
-.barra-relleno[data-progreso^="7"] {
-  background: linear-gradient(90deg, #ffeb3b, #ff9800); /* Amarillo-Naranja */
+.barra-relleno.progreso-medio {
+  background: linear-gradient(90deg, #ffeb3b, #ff9800);
 }
 
-.barra-relleno[data-progreso^="8"],
-.barra-relleno[data-progreso^="9"],
-.barra-relleno[data-progreso="100"] {
-  background: linear-gradient(90deg, #9c27b0, #f44336); /* Púrpura-Rojo */
+.barra-relleno.progreso-alto {
+  background: linear-gradient(90deg, #9c27b0, #f44336);
 }
+
 
 .borde-brillante {
   animation: brilloBordeCasino 1.5s ease-in-out infinite;
