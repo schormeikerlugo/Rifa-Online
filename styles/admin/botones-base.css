@@ -1,0 +1,86 @@
+/* ===================================
+   🔘 BOTONES BASE
+=================================== */
+.btn {
+  display: flex;
+  font-size: var(--font-size-sm);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  transition: background-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+/* 🎨 VARIANTES DE BOTONES */
+
+.btn-crear{
+  background-color: var(--green);
+  color: #fff;
+  width: 100%;
+  display: block;
+}
+
+.btn-crear:hover {
+  background-color: var(--green-dark);
+  transform: translateY(-2px);
+}
+
+.btn-accent {
+  background-color: var(--green);
+  color: #fff;
+  display: block;
+  width: 120px;  
+}
+.btn-accent:hover {
+  background-color: var(--green-dark);
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background-color: var(--red);
+  color: #fff;
+  width: 120px;
+  display: block;
+  
+}
+.btn-danger:hover {
+  background-color: var(--red-dark);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--gray-dark);
+  border: 2px solid var(--gray-dark);
+}
+.btn-outline:hover {
+  background: linear-gradient(90deg, var(--gray-light), var(--gray-medium));
+  color: var(--text-dark);
+  transform: scale(1.02);
+}
+
+.btn-neutral {
+  margin-top: 5%;  
+  background-color: var(--gray-light);
+  color: var(--text-dark);
+}
+.btn-neutral:hover {
+  background-color: var(--gray-medium);
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+#acciones-admin {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 10px;
+}

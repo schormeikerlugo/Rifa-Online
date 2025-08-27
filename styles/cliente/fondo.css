@@ -1,0 +1,51 @@
+/* ===================================
+   🌟 animacion de fondo
+=================================== */
+
+.sky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.shooting-star {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 2px;
+  height: 100px;
+  background: linear-gradient(-45deg, white, rgba(255, 255, 255, 0));
+  animation: shoot 5s linear infinite;
+  opacity: 0;
+}
+
+@keyframes shoot {
+  0% {
+    transform: translateX(0) translateY(0) rotate(45deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-1000px) translateY(1000px) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.shooting-star:nth-child(2) {
+  animation-delay: 1s;
+  left: 70%;
+}
+.shooting-star:nth-child(3) {
+  animation-delay: 2s;
+  left: 30%;
+}
+.shooting-star:nth-child(4) {
+  animation-delay: 3s;
+  left: 80%;
+}

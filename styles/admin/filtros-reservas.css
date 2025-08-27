@@ -1,0 +1,29 @@
+.filtros {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.btn-filter {
+  background-color: var(--text-dark);
+  color: #fff;
+  padding: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  margin: 10px 0px 0px 10px;
+}
+
+.btn-filter:hover {
+  background-color: var(--gray-dark);
+  transform: translateY(-1px);
+}
+
+.btn-filter.activo {
+  background-color: var(--blue);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transform: translateY(-1px);
+}

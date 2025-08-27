@@ -1,0 +1,116 @@
+/* ===================================
+   🎰 Rifas info (pantalla principal)
+=================================== */
+
+.rifa-info {
+  
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+.rifa-info::-webkit-scrollbar {
+  display: none;
+}
+.rifa-info h3 {
+  padding: 5px;
+  text-align: center;
+  align-items: center;
+  color: #fff;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+.rifa-info p {
+  text-align: center;
+  color: #979797;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+.rifa-info .fecha_inicio {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--green-fecha);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rifa-info .fecha_fin {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--red);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+/* ===================================
+   🖼️ SECCIÓN INFO RIFA
+=================================== */
+.info-rifa {
+  background-color: #170d27;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  max-width: 850px;
+  
+}
+.info-rifa img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px
+}
+
+.info-rifa h2 {
+  color: #d333be;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.info-rifa p {
+  color: #ffffff;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.inicio {
+  color:var(--green-fecha);
+  font-weight: bold;
+}
+
+.fin{
+  color: var(--red);
+  font-weight: bold;
+}
+
+.galeria-extra {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  margin-top: 2rem;
+}
+
+.imagen-extra {
+  max-width: 200px;
+  height: auto;
+  border-radius: 6px;}
+
+
+.imagen-extra:hover {
+  transform: scale(1.05);
+}

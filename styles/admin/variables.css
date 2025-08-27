@@ -1,0 +1,44 @@
+/* ===================================
+   📌 VARIABLES DE DISEÑO
+=================================== */
+:root {
+  /* 🎨 Colores primarios */
+  --green:           #10B981;
+  --green-dark:      #059669;
+  --red:             #EF4444;
+  --red-dark:        #B91C1C;
+  --blue:            #2563EB;
+  --blue-dark:       #1D4ED8;
+
+  /* ⚫️ Escala de grises */
+  --gray-light:      #F3F4F6;
+  --gray-medium:     #D1D5DB;
+  --gray-dark:       #6B7280;
+
+  /* ✍️ Tipografía y texto */
+  --text-light:      #F9FAFB;
+  --text-dark:       #111827;
+  --font-base:       'Poppins', sans-serif;
+  --font-size-xs:    0.75rem;
+  --font-size-sm:    0.875rem;
+  --font-size-md:    1rem;
+  --font-size-lg:    1.125rem;
+  --font-size-xl:    1.25rem;
+
+  /* 🟦 Radios */
+  --radius-sm:       8px;
+  --radius-md:       12px;
+  --radius-lg:       24px;
+  --radius-full:     9999px;
+
+  /* ⏱️ Transiciones y sombras */
+  --transition:      0.2s ease-in-out;
+  --shadow-sm:       0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md:       0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg:       0 10px 15px rgba(0, 0, 0, 0.15);
+  --shadow-inset:    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  /* 🌑 Colores utilitarios */
+  --overlay-dark:    rgba(0, 0, 0, 0.5);
+  --glass-dark:      rgba(22, 22, 22, 0.4);
+}

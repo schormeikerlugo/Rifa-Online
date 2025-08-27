@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RifasOnline</title>
-  <link rel="stylesheet" href="./styles/cliente/preloader.css" />
-  <link rel="stylesheet" href="./styles/cliente/loader-reservas.css" />
-  <link rel="stylesheet" href="./styles/cliente/styles.css" />
+  <link rel="stylesheet" href="./styles/cliente/main.css" />
   <link rel="icon" href="./assets/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"type="module"></script>
@@ -17,7 +15,7 @@
     <!-- ♾️ Preloader -->
 
   <div id="preloaderGlobal" class="preloader-global animate__animated animate__fadeIn">
-  <div class="preloader-contenido">
+    <div class="preloader-contenido">
     <dotlottie-player
       src="https://lottie.host/e9d5f3bd-dbce-4049-8acf-aecc768f9eeb/lpGuSVEpLy.lottie"
       background="transparent"
@@ -27,8 +25,8 @@
       autoplay>
     </dotlottie-player>
     <p class="preloader-texto">Cargando experiencia...</p>
+    </div>
   </div>
-</div>
 
   <main>
 
@@ -47,9 +45,9 @@
      <!-- contenedor de rifas -->
       <div id="rifasContainer" class="grid">
         <div class="barra-progreso">
-  <div class="barra-relleno animar-carga animacion-color" data-progreso="72"></div>
-  <div class="barra-texto">72%</div>
-</div>
+      <div class="barra-relleno animar-carga animacion-color" data-progreso="72"></div>
+      <div class="barra-texto">72%</div>
+      </div>
 
       </div>
     </section>
@@ -124,16 +122,12 @@
       <button id="modalCerrar">Cerrar</button>
     </div>
   </div>
-  
 
   <!-- 🌌 Loader Reservas -->
   <div id="loaderReserva" class="loader-overlay" style="display: none;">
     <div class="loader-core"></div>
     <div class="loader-text">Cargando reserva...</div>
   </div>
-
-
-
 
   <!-- 🌌 Fondo animado de estrellas -->
   <div class="sky">

@@ -1,0 +1,28 @@
+
+/* ===================================
+   🌌 GALERÍA EXTRA / IMÁGENES SECUNDARIAS
+=================================== */
+.galeria-extra{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: auto;
+  margin-top: 15px;
+  padding: 10px;
+  overflow-y: hidden;
+
+  
+}
+
+.galeria-extra img,
+.imagen-extra {
+  max-width: 150px;
+  border-radius: var(--radius-sm);
+  transition: transform var(--transition);
+  object-fit: contain;
+}
+
+.galeria-extra img:hover,
+.imagen-extra:hover {
+  transform: scale(1.05);
+}

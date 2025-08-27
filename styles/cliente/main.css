@@ -1,0 +1,15 @@
+@import url('./variables.css');
+@import url('./base.css');
+@import url('./utilidades.css');
+@import url('./header.css');
+@import url('./tarjetas.css');
+@import url('./progreso.css');
+@import url('./info-rifa.css');
+@import url('./numeros.css');
+@import url('./formulario.css');
+@import url('./modal.css');
+@import url('./modal-imagen.css');
+@import url('./boton-arriba.css');
+@import url('./fondo.css');
+@import url('./preloader.css');
+@import url('./loader-reservas.css');

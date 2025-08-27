@@ -1,0 +1,58 @@
+/* ===================================
+   🖼️ INFO RIFA SELECCIONADA
+=================================== */
+
+.detalle-rifa-admin {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  color: white;
+
+}
+
+#info-rifa-seleccionada {
+  background-color: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(2px);
+  border: 1px solid #444;
+  border-radius: var(--radius-md);
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+#info-rifa-seleccionada img {
+  max-width: 100%;
+  margin-top: 1rem;
+  border-radius:  var(--radius-sm);
+}
+
+/* Título */
+.rifa-titulo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2rem;
+}
+
+/* Descripción */
+.rifa-descripcion {
+  font-size: 0.9rem;
+  color: #979797;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+/* Fechas */
+.rifa-fecha-inicio {
+  font-weight: 500;
+  color: var(--green); /* Verde siempre activo */
+}
+
+.rifa-fecha-fin {
+  font-weight: 500;
+  color: var(--red); /* Rojo siempre activo */
+}
+
+
+.detalle-rifa-admin p {
+  margin: 1.5rem 0;
+}

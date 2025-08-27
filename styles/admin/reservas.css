@@ -1,0 +1,112 @@
+/* ===================================
+   🎫 RESERVAS
+=================================== */
+#lista-reservas {
+  margin-top: 2rem;
+}
+.mensaje-final,
+.sin-reservas {
+  text-align: center;
+  margin-top: 2rem;
+  color: var(--text-light);
+  opacity: 0.8;
+}
+.sin-reservas img {
+  max-width: 60%;
+  display: block;
+  margin: 0 auto 20px;
+  filter: grayscale(70%);
+}
+
+.card{
+  background-color: var(--glass-dark);
+  backdrop-filter: blur(2px);
+  border: 3px solid #000;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  padding: 15px;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.card p {
+  font-size: var(--font-size-sm);
+  color: #979797;
+  word-break: break-word;
+  padding: 10px 0;
+}
+
+.comprobante-link {
+  margin: 15px 0px 15px 0px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px; /* más pequeño */
+  background-color: var(--glass-dark);
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(186, 85, 211, 0.6); /* morado tenue */
+  border-radius: var(--radius-md);
+  color: rgba(221, 160, 221, 0.9); /* lavanda claro */
+  font-weight: 600;
+  font-size: 0.85rem; /* más pequeño */
+  text-decoration: none;
+  box-shadow: 0 0 6px rgba(186, 85, 211, 0.2);
+  transition: border-color 0.3s ease,box-shadow 0.3s ease, 
+              color 0.3s ease, 
+              transform 0.2s ease;
+}
+
+.comprobante-link:hover {
+  border-color: rgba(186, 85, 211, 0.95); /* más brillante */
+  color: #f3d0ff; /* texto más claro */
+  box-shadow: 0 0 10px rgba(186, 85, 211, 0.6),
+              0 0 20px rgba(186, 85, 211, 0.4);
+  transform: translateY(-2px);
+}
+
+/*BOTOTES*/
+
+.aprobar{
+  font-size: var(--font-size-sm);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  transition: background-color var(--transition), color var(--transition), transform var(--transition);
+  background-color: var(--green);
+  color: #fff;
+}
+
+.aprobar:hover {
+  background-color: var(--green-dark);
+  transform: translateY(-2px);
+}
+
+.rechazar {
+  font-size: var(--font-size-sm);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  transition: background-color var(--transition), color var(--transition), transform var(--transition);
+  background-color: var(--red);
+  color: #fff;
+}
+.rechazar:hover {
+  background-color: var(--red-dark);
+  transform: translateY(-2px);
+}

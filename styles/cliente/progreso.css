@@ -1,0 +1,105 @@
+/* ===================================
+   🎰 BARRA DE PROGRESO TIPO CASINO
+=================================== */
+.barra-progreso {
+  padding: 15px;
+  position: relative;
+  width: 240px;
+  height: 24px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-casino);
+  border: 1px solid var(--casino-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.barra-relleno {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: var(--radius-md);
+  transition: width 1.5s ease-out, background 0.3s ease;
+  z-index: 1;
+  background-size: 200% 100%;
+  background-position: 0% 50%;
+}
+
+/* Estado inicial para animación */
+.barra-relleno.animar-carga {
+  width: 0;
+}
+
+/* 🎞️ Movimiento constante del fondo */
+.barra-relleno.animacion-color {
+  animation: moverColor 3s linear infinite;
+}
+
+@keyframes moverColor {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+
+/* 🎨 Colores por porcentaje usando data-progreso */
+.barra-relleno.progreso-bajo {
+  background: linear-gradient(90deg, var(--casino-blue), var(--casino-green));
+}
+
+.barra-relleno.progreso-medio {
+  background: linear-gradient(90deg, #ffeb3b, #ff9800);
+}
+
+.barra-relleno.progreso-alto {
+  background: linear-gradient(90deg, #9c27b0, #f44336);
+}
+
+
+.borde-brillante {
+  animation: brilloBordeCasino 1.5s ease-in-out infinite;
+  box-shadow: 0 0 8px 2px var(--casino-border);
+}
+
+@keyframes brilloBordeCasino {
+  0% {
+    box-shadow: 0 0 4px 1px var(--casino-border);
+  }
+  50% {
+    box-shadow: 0 0 12px 3px var(--casino-border);
+  }
+  100% {
+    box-shadow: 0 0 4px 1px var(--casino-border);
+  }
+}
+
+.barra-texto {
+  position: relative;
+  z-index: 2;
+  color: var(--casino-text);
+  font-weight: bold;
+  font-size: var(--font-size-sm);
+  text-shadow: var(--text-glow);
+  line-height: 24px;
+  text-align: center;
+  padding: 0 8px;
+}
+
+/* ✨ Animación tipo brillo casino */
+@keyframes brilloCasino {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

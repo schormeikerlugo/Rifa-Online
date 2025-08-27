@@ -1,0 +1,44 @@
+/* ================================
+   🖼️ MODAL PARA AMPLIAR IMAGEN
+================================== */
+
+.modal-imagen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: var(--modal-box);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+.modal-imagen:target {
+  display: flex;
+}
+.modal-imagen img {
+  max-width: 90%;
+  max-height: 90vh;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+}
+.modal-imagen .cerrar-modal {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: bold;
+  z-index: 100000;
+  background: rgba(0,0,0,0.4);
+  padding: 5px 12px;
+  border-radius: 8px;
+}
+
+.imagen-extra img {
+  cursor: pointer;
+  transition: var(--transition);
+}
+.imagen-extra img:hover {
+  transform: scale(1.05);
+}

@@ -47,12 +47,13 @@ Bienvenido a la plataforma de rifas en línea. Esta aplicación permite a los us
 
 ## ✨ Características
 
-- 🎯 Clientes pueden seleccionar números, ver rifas activas y subir comprobantes.
+- 🎯 Rifa en vivo: Los usuarios pueden comprar tickets y ver el contador de tickets disponibles al instante
 - 🧑‍💼 Panel de administrador para gestionar rifas, validar reservas y editar información.
-- 💾 Conexión directa a Supabase (auth, storage y base de datos).
+- 💾 Conexión directa a Supabase (auth, storage y base de datos, edge functions).
 - 💡 Estructura modular por funcionalidades (UI, reservas, rifas, etc).
 - ⚡ Animaciones con CSS.
-- 📁 Proyecto 100% frontend, sin necesidad de servidor adicional.
+- 📱 Responsive: UI totalmente adaptada a escritorio y móvil.
+- 📁 Proyecto 100% frontend utilizando supabase para el backend.
 
 ---
 
@@ -68,41 +69,108 @@ Bienvenido a la plataforma de rifas en línea. Esta aplicación permite a los us
 ## 📁 Estructura del Proyecto
 
 ```plaintext
-plataforma-rifas/
-│
-├── public/                    # Archivos HTML y estáticos
-│   ├── index.html             # Vista cliente
-│   ├── admin.html             # Panel de administración
-│   └── assets/
-│   ├── css/
-│       │   ├── cliente.css
-│       │   └── admin.css
-│
-├── cliente/                   # Módulos para vista cliente
-│   ├── app.js
-│   ├── cargarRifas.js
-│   ├── infoRifaUI.js
-│   ├── modal.js
-│   ├── numerosUI.js
-│   ├── reservas.js
-│   ├── scrollControl.js
-│   ├── supabaseCliente.js
-│   └── uiHelpers.js
-│
-├── admin/                     # Módulos del panel admin
-│   ├── admin.js
-│   ├── supabaseClient.js
-│   ├── rifasAdmin.js
-│   ├── formRifasAdmin.js
-│   ├── editarRifa.js
-│   ├── reservasAdmin.js
-│   ├── modalAdmin.js
-│   ├── utilsAdmin.js
-│   ├── uiAdminHelpers.js
-│   ├── helpersAdmin.js
-│   └── loginAdmin.js
-│
-└── README.md                  # Este archivo
+.
+├── README.md
+├── admin.html
+├── index.html
+├── api/
+│   ├── supabaseAdmin.js
+│   └── supabaseFunctions.js
+├── assets/
+│   └── capture/
+│       ├── admin/
+│       └── cliente/
+├── styles/
+│   ├── admin/
+│   │   ├── admin-styles.css
+│   │   ├── base.css
+│   │   ├── boton-arriba.css
+│   │   ├── botones-base.css
+│   │   ├── filtros-reservas.css
+│   │   ├── fondo.css
+│   │   ├── formulario.css
+│   │   ├── header.css
+│   │   ├── imagenes-extras.css
+│   │   ├── info-rifa.css
+│   │   ├── login.css
+│   │   ├── main.css
+│   │   ├── modal.css
+│   │   ├── reservas.css
+│   │   ├── tarjetas.css
+│   │   ├── utilidades.css
+│   │   └── variables.css
+│   └── cliente/
+│       ├── base.css
+│       ├── boton-arriba.css
+│       ├── fondo.css
+│       ├── formulario.css
+│       ├── header.css
+│       ├── info-rifa.css
+│       ├── loader-reservas.css
+│       ├── main.css
+│       ├── modal-imagen.css
+│       ├── modal.css
+│       ├── numeros.css
+│       ├── preloader.css
+│       ├── progreso.css
+│       ├── tarjetas.css
+│       ├── utilidades.css
+│       ├── variables.css
+│       └── styles.css
+├── src/
+│   ├── admin/
+│   │   ├── admin.js
+│   │   ├── funciones/
+│   │   │   ├── editarRifa.js
+│   │   │   ├── formRifasAdmin.js
+│   │   │   ├── helpersAdmin.js
+│   │   │   ├── reservasAdmin.js
+│   │   │   └── rifasAdmin.js
+│   │   ├── login/
+│   │   │   └── loginAdmin.js
+│   │   └── ui/
+│   │       ├── modal/
+│   │       │   └── modalAdmin.js
+│   │       ├── scrollControlAdmin.js
+│   │       ├── uiAdminHelpers.js
+│   │       └── utilsAdmin.js
+│   └── cliente/
+│       ├── app.js
+│       ├── funciones/
+│       │   ├── cargarRifas.js
+│       │   └── reservas.js
+│       └── ui/
+│           ├── infoRifaUI.js
+│           ├── modal/
+│           │   └── modal.js
+│           ├── numerosUI.js
+│           ├── preloader/
+│           │   └── preloader.js
+│           ├── scrollControl.js
+│           └── uiHelpers.js
+└── supabase/
+    ├── config.toml
+    └── functions/
+        ├── admin-create-rifa/
+        │   ├── .npmrc
+        │   ├── deno.json
+        │   └── index.ts
+        ├── admin-delete-rifa/
+        │   ├── .npmrc
+        │   ├── deno.json
+        │   └── index.ts
+        ├── admin-moderate-reserva/
+        │   ├── .npmrc
+        │   ├── deno.json
+        │   └── index.ts
+        ├── admin-update-rifa/
+        │   ├── .npmrc
+        │   ├── deno.json
+        │   └── index.ts
+        └── send-email/
+            ├── .npmrc
+            ├── deno.json
+            └── index.ts
 ``` 
 ## 🔐 Acceso al Panel de Administración
 
@@ -122,11 +190,15 @@ Podrás editar, eliminar o aprobar reservas
 
 ## 🧪 Estado del Proyecto
 
-✅ MVP funcional completo
+✅ MVP funcional completo.
+
+✅ Separación por microservicios con Edge Functions.
+
+✅ Sistema de login para el admin con funcion a token para validad peticiones con mayor seguridad.
+
+✅ integrar preloader para los procesos de subida multimedia.
 
 🔜 En desarrollo:
-
- Separación por microservicios con API REST.
 
  Empaquetado con Docker.
 
@@ -135,8 +207,6 @@ Podrás editar, eliminar o aprobar reservas
  Historial de ganadores.
 
  Sistema de notificaciones.
-
- integrar preloader para los procesos de subida multimedia.
 
 🧠 ## Créditos y Agradecimientos
 

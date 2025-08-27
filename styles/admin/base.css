@@ -1,0 +1,48 @@
+/* ===================================
+   🔁 RESET Y BASE
+=================================== */
+* {
+  overflow-x: hidden!important;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  scroll-behavior: smooth;
+  overflow-x: hidden!important;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+body.con-scroll {
+  overflow-y: auto;
+  
+}
+
+body.no-scroll {
+  overflow: hidden !important;
+}
+
+body {
+  min-height: 100vh;
+  max-width: 900px;
+  margin: auto;
+  padding: 2rem;
+  font-family: var(--font-base);
+  color: var(--text-light);
+  background-color: #0d1521;
+  background-image: radial-gradient(circle, #222224 2%, transparent 6%);
+  background-size: 40px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden !important;
+}
+
+#admin-panel {
+  min-height: 100vh;
+  overflow: hidden !important;
+}

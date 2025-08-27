@@ -1,0 +1,48 @@
+/* ===================================
+   🎴 TARJETAS DE RIFAS
+=================================== */
+
+h2, h3 {
+  color: var(--text-light);
+  text-align: center;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#rifasContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+
+}
+
+.rifa-card {
+  width: 100%;
+  max-width: 350px;
+  height: 100%;
+  height: 400px;
+  background-color: var(--glass-dark);
+  backdrop-filter: blur(2px);
+  border: 3px solid #000;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba (176, 75, 220, 50);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+.rifa-card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(176, 75, 220, 100);
+}
+.rifa-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}

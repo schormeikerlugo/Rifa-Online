@@ -1,0 +1,22 @@
+/* ===================================
+   👤 ADMIN LOGIN
+=================================== */
+
+#admin-login {
+  position: relative;
+  z-index: 10; /* Asegura que esté por encima de secciones ocultas */
+  background-color: var(--glass-dark);
+  backdrop-filter: blur(2px);
+  border: 3px solid #000;
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+}
