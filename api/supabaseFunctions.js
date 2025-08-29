@@ -162,3 +162,35 @@ export async function subirComprobante(archivo, numeroSel) {
 
   return pu.publicUrl;
 }
+
+/**
+ * 📌 Obtener notificaciones
+ */
+export async function obtenerNotificaciones() {
+  const { data, error } = await supabase
+    .from("notificaciones")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    mostrarModal("❌ Error al obtener notificaciones: " + error.message);
+    return [];
+  }
+  return data || [];
+}
+
+/**
+ * 📌 Marcar notificación como leída
+ */
+export async function marcarNotificacionLeida(id) {
+  const { error } = await supabase
+    .from("notificaciones")
+    .update({ leido: true })
+    .eq("id", id);
+
+  if (error) {
+    mostrarModal("❌ Error al actualizar notificación: " + error.message);
+    return false;
+  }
+  return true;
+}

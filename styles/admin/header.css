@@ -1,8 +1,7 @@
 /* ===================================
    ✨ HEADER
 =================================== */
-
-header {
+header#admin-header {
   width: 100%;
   padding: 1rem;
   background-color: var(--glass-dark);
@@ -14,9 +13,12 @@ header {
   align-items: center;
   margin-bottom: 2rem;
   border: 3px solid #000;
+
+  position: relative; /* necesario para el dropdown */
+  overflow: visible;  /* permite que hijos absolutos se vean fuera */
 }
 
-h2{
+h2 {
   font-size: var(--font-size-lg);
   color: var(--text-light);
   margin: 0;
@@ -24,12 +26,11 @@ h2{
 }
 
 input, textarea {
-  
   background: var(--text-dark);
   color: var(--gray-light);
   font-size: var(--font-size-sm);
   width: 100%;
-  padding: 20px 20px;
+  padding: 20px;
   margin-bottom: 15px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--text-dark);

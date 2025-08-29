@@ -26,11 +26,23 @@
 
     <!-- ════════════════════════════════════════════════════════ -->
     <!-- 🔷 ENCABEZADO PRINCIPAL -->
-    <header id="admin-header" class="oculto transicion" style="display: flex;">
-      <img src="assets/logo-admin.png" alt="" class="imgLogo-admin">
-      <h1>Panel de Administración</h1>
-      <button id="btn-logout" class="btn btn-danger">Cerrar sesión</button>      
+    <header id="admin-header" class="oculto transicion" style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px;">
+      <div class="header-left" style="display: flex; align-items: center; gap: 10px;">
+        <img src="assets/logo-admin.png" alt="" class="imgLogo-admin">
+        <h1>Panel de Administración</h1>
+      </div>
+
+      <!-- 🔹 NOTIFICACIONES -->
+      <div id="notificaciones" class="notificaciones-container">
+        <button id="btnNotificaciones" class="btn-notificacion">
+          🔔 <span id="contadorNotificaciones">0</span>
+        </button>
+        <ul id="listaNotificaciones" class="dropdown"></ul>
+      </div>
+
+      <button id="btn-logout" class="btn btn-danger">Cerrar sesión</button>
     </header>
+
 
     <!-- ════════════════════════════════════════════════════════ -->
     <!-- 🔹 ACCIONES GENERALES -->

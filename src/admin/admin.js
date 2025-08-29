@@ -4,13 +4,17 @@ import { mostrarFormulario, ocultarFormulario, volverAPrincipal, resetearFormula
 import { prepararModal } from '../admin/ui/modal/modalAdmin.js';
 import { inicializarBotonIrArriba } from '../admin/ui/scrollControlAdmin.js';
 import { cargarRifas } from '../admin/funciones/rifasAdmin.js';
+import { cargarNotificaciones, escucharNotificacionesTiempoReal } from "./funciones/notificaciones.js";
 
 document.addEventListener('DOMContentLoaded', () => {
   prepararModal();
 
   // Cargar rifas si usuario logueado
   supabase.auth.getSession().then(({ data: { session } }) => {
-    if (session?.user) cargarRifas();
+    if (session?.user)
+      cargarRifas();
+      cargarNotificaciones(); // 👈 cargar al iniciar
+      escucharNotificacionesTiempoReal(); // 👈 escuchar
   });
 
   const formRifa = document.getElementById('form-rifa');
