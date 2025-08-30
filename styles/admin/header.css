@@ -1,6 +1,7 @@
 /* ===================================
    ✨ HEADER
 =================================== */
+
 header#admin-header {
   width: 100%;
   padding: 1rem;
@@ -13,9 +14,20 @@ header#admin-header {
   align-items: center;
   margin-bottom: 2rem;
   border: 3px solid #000;
-
   position: relative; /* necesario para el dropdown */
   overflow: visible;  /* permite que hijos absolutos se vean fuera */
+  z-index: 9999;
+}
+
+h1 {
+  font-size: var(--font-size-xl);
+  color: var(--text-light); 
+  align-items: center;
+
+  @media (max-width: 768px) {
+    display:none;
+  }
+
 }
 
 h2 {
@@ -52,4 +64,16 @@ img.imgLogo-admin {
   width: 80px;
   height: auto;
   margin-right: 10px;
+}
+
+.btn-danger {
+  background-color: var(--red);
+  color: #fff;
+  width: 120px;
+  display: block;
+  
+}
+.btn-danger:hover {
+  background-color: var(--red-dark);
+  transform: translateY(-2px);
 }

@@ -2,7 +2,6 @@
    🔁 RESET Y BASE
 =================================== */
 * {
-  overflow-x: hidden!important;
   box-sizing: border-box;
   margin: 0;
   padding: 0;

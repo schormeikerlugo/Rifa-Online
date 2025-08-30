@@ -9,13 +9,15 @@ import { cargarNotificaciones, escucharNotificacionesTiempoReal } from "./funcio
 document.addEventListener('DOMContentLoaded', () => {
   prepararModal();
 
-  // Cargar rifas si usuario logueado
-  supabase.auth.getSession().then(({ data: { session } }) => {
-    if (session?.user)
-      cargarRifas();
-      cargarNotificaciones(); // 👈 cargar al iniciar
-      escucharNotificacionesTiempoReal(); // 👈 escuchar
-  });
+// Cargar rifas y notificaciones si usuario logueado
+supabase.auth.getSession().then(({ data: { session } }) => {
+  if (session?.user) {
+    cargarRifas();
+    cargarNotificaciones(); // 👈 cargar al iniciar
+    escucharNotificacionesTiempoReal(); // 👈 escuchar
+  }
+});
+
 
   const formRifa = document.getElementById('form-rifa');
 

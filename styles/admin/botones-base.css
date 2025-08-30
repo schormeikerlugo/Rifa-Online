@@ -40,18 +40,6 @@
   transform: translateY(-2px);
 }
 
-.btn-danger {
-  background-color: var(--red);
-  color: #fff;
-  width: 120px;
-  display: block;
-  
-}
-.btn-danger:hover {
-  background-color: var(--red-dark);
-  transform: translateY(-2px);
-}
-
 .btn-outline {
   background-color: transparent;
   color: var(--gray-dark);

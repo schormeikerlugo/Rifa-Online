@@ -24,11 +24,7 @@
 /* ===================================
    🧾 TITULARES Y TEXTO
 =================================== */
-h1 {
-  font-size: var(--font-size-xl);
-  color: var(--text-light); 
-  align-items: center;
-}
+
 strong, p {
   color: inherit;
 }
