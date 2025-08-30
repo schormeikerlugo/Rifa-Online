@@ -4,7 +4,7 @@ import { mostrarFormulario, ocultarFormulario, volverAPrincipal, resetearFormula
 import { prepararModal } from '../admin/ui/modal/modalAdmin.js';
 import { inicializarBotonIrArriba } from '../admin/ui/scrollControlAdmin.js';
 import { cargarRifas } from '../admin/funciones/rifasAdmin.js';
-import { cargarNotificaciones, escucharNotificacionesTiempoReal } from "./funciones/notificaciones.js";
+
 
 document.addEventListener('DOMContentLoaded', () => {
   prepararModal();
@@ -13,8 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 supabase.auth.getSession().then(({ data: { session } }) => {
   if (session?.user) {
     cargarRifas();
-    cargarNotificaciones(); // 👈 cargar al iniciar
-    escucharNotificacionesTiempoReal(); // 👈 escuchar
   }
 });
 

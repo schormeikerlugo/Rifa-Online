@@ -28,7 +28,7 @@ export function renderNotificacionesUI(notificaciones, contadorElement) {
   listaNotificaciones.innerHTML = "";
 
   if (!notificaciones || notificaciones.length === 0) {
-    listaNotificaciones.innerHTML = "<li>No hay notificaciones nuevas</li>";
+    listaNotificaciones.innerHTML = "<li>☕ No hay notificaciones nuevas ....</li>";
     contadorElement.textContent = "0";
     return;
   }

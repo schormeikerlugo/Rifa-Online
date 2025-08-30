@@ -4,6 +4,8 @@ import { supabase } from '../../../api/supabaseAdmin.js'
 import { mostrarModal } from '../ui/modal/modalAdmin.js'
 import { mostrarElemento, ocultarElemento } from '../ui/uiAdminHelpers.js'
 import { cargarRifas } from '../funciones/rifasAdmin.js';
+import { cargarNotificaciones, escucharNotificacionesTiempoReal } from "../funciones/notificaciones.js";
+
 
 
 // ✅ Configura aquí tu correo de administrador
@@ -34,6 +36,8 @@ if (loginForm) {
 
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     cargarRifas();         // 🚀 Cargar rifas al inicio
+    cargarNotificaciones(); // 👈 cargar al iniciar
+    escucharNotificacionesTiempoReal(); // 👈 escuchar
 
     if (error || data?.user?.email !== ADMIN_EMAIL) {
       mostrarModal('⚠️ Acceso restringido al administrador', 'advertencia')
